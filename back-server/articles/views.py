@@ -52,7 +52,6 @@ def movie_list(request):
     if request.method == 'GET':
         movies = Movie.objects.all()
         sorted_results = []
-
         if len(movies) < 2:
             results = []
             page_num = 0
