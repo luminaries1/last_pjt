@@ -2,15 +2,37 @@
   <div id="app">
     <nav>
       <!-- <router-link :to="{ name: 'ArticleView' }">Articles</router-link> |  -->
+      <span>{{ getUserName }}  </span> |
       <router-link :to="{ name: 'MovieView' }">Movies</router-link> | 
-      <router-link :to="{ name: 'SignUpView' }">SignUpPage</router-link> | 
-      <router-link :to="{ name: 'LogInView' }">LogInPage</router-link> |
+      <router-link v-if="isLogin" :to="{ name: 'SignUpView' }">SignUpPage |</router-link>  
+      <router-link v-if="isLogin" :to="{ name: 'LogInView' }">LogInPage |</router-link>
+      <a href="" @click.prevent="clickOut" v-if="!isLogin">LogOut  |</a>     
       <router-link :to="{ name: 'CommunityView' }">Community</router-link>
 
     </nav>
     <router-view/>
   </div>
 </template>
+
+<script>
+  export default {
+    name: 'App',
+    computed : {
+      getUserName() {
+        return  this.$store.getters.getUserName
+      },
+      isLogin() {
+        return this.$store.state.token ? false : true
+      }
+    },
+    methods : {
+      clickOut() {
+        this.$store.dispatch('logOut')
+      }
+    } 
+   
+  }
+  </script>
 
 <style>
 #app {

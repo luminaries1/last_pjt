@@ -14,6 +14,8 @@ export default new Vuex.Store({
     createPersistedState()
   ],
   state: {
+    userName: null,
+
     articles: [
     ],
     token : null,
@@ -25,6 +27,12 @@ export default new Vuex.Store({
   getters: {
     isLogin(state){
       return state.token ? true : false
+    },
+    getPartOfMovies: (state) => (index)=> {
+      return state.movies.slice((index-1)*6 , index*6)
+    },
+    getUserName (state){
+      return state.token ? `${state.userName}` : '알 수 없는'
     }
   },
   mutations: {
@@ -39,8 +47,18 @@ export default new Vuex.Store({
       console.log(state.token)
       router.push({ name:'MovieView' })
     },
+    OUT_TOKEN(state){
+      state.token = null
+      router.push({ name:'LogInView'})
+    },
     GET_COMMUNITYS(state, communitys){
       state.communitys = communitys
+    },
+    SET_USERNAME(state, userName){
+      state.userName = userName
+    },
+    LOG_OUT(state){
+      state.userName = null
     }
   },
   actions: {
@@ -74,7 +92,9 @@ export default new Vuex.Store({
       })
     },
     signUp(context, payload) {
+      context.commit('SET_USERNAME', payload.username)
       console.log(payload)
+      
       axios({
         method : 'post',
         url: `${API_URL}/accounts/signup/`,
@@ -85,7 +105,7 @@ export default new Vuex.Store({
         }
       })
       .then((res) => {
-        console.log(res)
+        // console.log(res)
         context.commit('SAVE_TOKEN', res.data.key)
       })
       .catch(err => console.log(err))
@@ -106,6 +126,7 @@ export default new Vuex.Store({
     //   })
     // },
     logIn(context, payload) {
+      context.commit('SET_USERNAME', payload.username)
       axios({
         method: 'post',
         url: `${API_URL}/accounts/login/`,
@@ -115,10 +136,18 @@ export default new Vuex.Store({
         }
       })
         .then((res) => {
-          console.log('___________ 토큰_______')
-          console.log(res)
           context.commit('SAVE_TOKEN', res.data.key)
         })
+    },
+    logOut(context){
+      context.commit('LOG_OUT')
+      axios({
+        method: 'post',
+        url: `${API_URL}/accounts/logout/`,
+      })
+      .then(() => {
+        context.commit('OUT_TOKEN')
+      })
     },
     // _------------------------------여기서 부터 시작 ----------
     getCommunitys(context) {

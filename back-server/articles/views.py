@@ -49,23 +49,24 @@ def created_by_default_data(data, request):
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
 def movie_list(request):
-    # print('1') check 용
-
     if request.method == 'GET':
         movies = Movie.objects.all()
         sorted_results = []
-        if len(movies) > 6:
-            pass
-        else:
-            URL = 'https://api.themoviedb.org/3/movie/popular?api_key=fc5af459c34c6a1f3ae12d3190cb9873&language=en-US&page=1'
-            response = requests.get(URL).json()
-            results = response.get('results')
+
+        if len(movies) < 2:
+            results = []
+            page_num = 0
+            while page_num != 50:
+                page_num += 1
+                URL = f'https://api.themoviedb.org/3/movie/popular?api_key=fc5af459c34c6a1f3ae12d3190cb9873&language=en-US&page={page_num}'
+                response = requests.get(URL).json()
+                results.extend(response.get('results')) 
             sorted_results = sorted(results, key = lambda x : -x['vote_average'] )
             # sorted_results = sorted_results[:5]
         
 
         if sorted_results:
-            for i in range(5):
+            for i in range(len(sorted_results)):
                 tmp_movie_data = sorted_results[i]
                 created_by_default_data(tmp_movie_data,request)
 

@@ -1,10 +1,21 @@
 <template>
     <div class="article-list">
       <h3>Movie List</h3>
-      <MovieListItem 
-      v-for="movie in movies"
-      :key="movie.id"
-      :movie ="movie" /> 
+      <div class="row">
+        <MovieListItem 
+        v-for="movie in movies.slice(0,3)"
+        :key="movie.id"
+        :movie ="movie" 
+        class="col-3 mx-4"/> 
+      </div>
+      <div class="row">
+        <MovieListItem 
+        v-for="movie in movies.slice(3,6)"
+        :key="movie.id"
+        :movie ="movie" 
+        class="col-3 mx-4"/> 
+      </div>
+      
     </div>
   </template>
   
@@ -15,9 +26,12 @@
     components: {
       MovieListItem
     },
+    props : {
+      pageNum : Number
+    },
     computed: {
       movies () {
-        return this.$store.state.movies
+        return this.$store.getters.getPartOfMovies(this.pageNum)
       }
     }
   }
