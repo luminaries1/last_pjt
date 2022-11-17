@@ -59,6 +59,7 @@ export default new Vuex.Store({
     },
     LOG_OUT(state){
       state.userName = null
+    },
     UPDATE_COMMUNITY(state, community){
       state.communitys = state.communitys.map((item) => {
         if (item.id == community.id){
