@@ -11,7 +11,7 @@
       <div class="row">
         <div class="col-2"></div>
         <div class="row col-10">
-        <button v-for="(index, num) in pageArr" :key="num" class="btn btn-secondary col-1 mx-3" @click="changePage(index)">{{ index }}</button>
+        <button v-for="(num, index) in pageArr" :key="index" class="btn btn-secondary col-1 mx-1" @click="changePage(num)">{{ num }}</button>
         </div>
       </div>
 
@@ -24,12 +24,13 @@
   import SideBar from '@/components/SideBar.vue';
   import _ from "lodash";
 
+
   export default {
     name: 'MovieView',
     data () {
       return {
         pageNum : 1,
-        pageArr : []
+        pageArr : [],
       }
     },
     components: {
@@ -49,7 +50,9 @@
         if(this.isLogin)
         {
           this.$store.dispatch('getMovies')
-          this.pageArr = _.range(1,7)
+          const maxPage = this.$store.getters.getMoviesLength
+          const maxShowPage = Math.min(this.pageNum +10 , maxPage)
+          this.pageArr = _.range(this.pageNum,maxShowPage)
         }
         else 
         {
@@ -57,8 +60,17 @@
           this.$router.push({name: 'LogInView'})
         }
       },
-      changePage(index) {
-        this.pageNum = index
+      changePage(num) {
+        this.pageNum = num
+        const maxPage = this.$store.getters.getMoviesLength
+        const maxShowPage = Math.min(this.pageNum +10 , maxPage)
+        if (num == 1){
+
+          this.pageArr = _.range(this.pageNum,maxShowPage)
+        }else{
+          this.pageArr = _.range(this.pageNum-1,maxShowPage-1)
+
+        }
       }
       
     }

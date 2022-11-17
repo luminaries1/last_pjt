@@ -22,6 +22,7 @@ export default new Vuex.Store({
     movies : [
     ],
     communitys : [],
+    keyword: null
 
   },
   getters: {
@@ -32,7 +33,10 @@ export default new Vuex.Store({
       return state.movies.slice((index-1)*6 , index*6)
     },
     getUserName (state){
-      return state.token ? `${state.userName}` : '알 수 없는'
+      return state.token ? `${state.userName} 님 반갑습니다.` : '로그인이 필요합니다'
+    },
+    getMoviesLength(state){
+      return parseInt(state.movies.length/6) +1
     }
   },
   mutations: {
@@ -67,6 +71,9 @@ export default new Vuex.Store({
         }
         return item
       })
+    },
+    UPDATE_KEYWORD(state, keyword){
+      state.keyword = keyword
     }
   },
   actions: {
@@ -99,6 +106,19 @@ export default new Vuex.Store({
         context.commit('GET_MOVIES', res.data)
       })
     },
+    getKeywordMovies(context, keyword){
+      context.commit('UPDATE_KEYWORD', keyword)
+      axios({
+        method: 'get',
+        url : `${API_URL}/api/v1/movies/${context.state.keyword}/`,
+        headers : {
+          Authorization : `Token ${context.state.token}`
+        }
+      })
+      .then((res) => {
+        context.commit('GET_MOVIES', res.data)
+      })
+    },
     signUp(context, payload) {
       context.commit('SET_USERNAME', payload.username)
       console.log(payload)
@@ -118,21 +138,6 @@ export default new Vuex.Store({
       })
       .catch(err => console.log(err))
     },
-    // 형 파일에 있던 로그인
-    // login(context, payload){
-    //   axios({
-    //     method: 'post',
-    //     url:`${API_URL}/accounts/login/`,
-    //     data : {
-    //       username : payload.username,
-    //       password : payload.password
-    //     }
-    //   })
-    //   .then((res)=> {
-    //     // console.log(res)
-    //     context.commit('SAVE_TOKEN', res.data.key)
-    //   })
-    // },
     logIn(context, payload) {
       context.commit('SET_USERNAME', payload.username)
       axios({

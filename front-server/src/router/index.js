@@ -59,11 +59,6 @@ const routes = [
   //   component: DetailView,
   // },
   {
-    path: '/:id',
-    name: 'DetailMovie',
-    component: DetailMovie,
-  },  
-  {
     path: '/community',
     name: 'CommunityView',
     component: CommunityView,
@@ -82,7 +77,12 @@ const routes = [
     path: '/detailcommunity',
     name: 'DetailCommunityView',
     component: DetailCommunityView
-  }
+  },
+  {
+    path: '/:id',
+    name: 'DetailMovie',
+    component: DetailMovie,
+  },  
 ]
 
 const router = new VueRouter({

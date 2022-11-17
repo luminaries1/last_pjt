@@ -62,7 +62,6 @@ def movie_list(request):
                 response = requests.get(URL).json()
                 results.extend(response.get('results')) 
             sorted_results = sorted(results, key = lambda x : -x['vote_average'] )
-            # sorted_results = sorted_results[:5]
         
 
         if sorted_results:
@@ -73,44 +72,19 @@ def movie_list(request):
 
         movies = get_list_or_404(Movie)
         serializer = MovieListSerializer(movies, many= True)
-        # articles = Article.objects.all()
-        # articles = get_list_or_404(Article)
-        # serializer = ArticleListSerializer(articles, many=True)
-        # print(serializer)
         return Response(serializer.data)
 
     elif request.method == 'POST':
         print(request.data)
         serializer = MovieSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
-            # serializer.save()
             serializer.save(user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
-# @api_view(['GET', 'DELETE', 'PUT'])
-# def article_detail(request, article_pk):
-#     # article = Article.objects.get(pk=article_pk)
-#     article = get_object_or_404(Article, pk=article_pk)
-
-#     if request.method == 'GET':
-#         serializer = ArticleSerializer(article)
-#         return Response(serializer.data)
-    
-#     elif request.method == 'DELETE':
-#         article.delete()
-#         return Response(status=status.HTTP_204_NO_CONTENT)
-
-#     elif request.method == 'PUT':
-#         serializer = ArticleSerializer(article, data=request.data)
-#         if serializer.is_valid(raise_exception=True):
-#             serializer.save()
-#             return Response(serializer.data)
-
 
 @api_view(['GET', 'DELETE', 'PUT'])
 def movie_detail(request, movie_pk):
-    # article = Article.objects.get(pk=article_pk)
     movie = get_object_or_404(Movie, pk=movie_pk)
 
     if request.method == 'GET':
@@ -126,6 +100,14 @@ def movie_detail(request, movie_pk):
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data)
+
+@api_view(['GET'])
+def movie_keyword(request, movie_keyword):
+    if request.method == 'GET':
+        movies = get_list_or_404(Movie, title__contains=f'{movie_keyword}' , description__contains =f'{movie_keyword}' )
+        serializer = MovieListSerializer(movies, many= True)
+        return Response(serializer.data)
+
 
 
 @api_view(['GET'])
