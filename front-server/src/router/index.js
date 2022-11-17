@@ -64,17 +64,17 @@ const routes = [
     component: CommunityView,
   },
   {
-    path: '/createcommunity',
+    path: '/community/create',
     name: 'CreateCommunityView',
     component: CreateCommunityView,
   },
   {
-    path: '/updatecommunity',
+    path: '/community/:id/update',
     name: 'UpdateCommunityView',
     component: UpdateCommunityView
   },
   {
-    path: '/detailcommunity',
+    path: '/community/:id',
     name: 'DetailCommunityView',
     component: DetailCommunityView
   },

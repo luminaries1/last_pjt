@@ -28,11 +28,7 @@ def community_list(request):
     elif request.method == 'POST':
         serializer = CommunitySerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
-            print('넘어오긴 합니다.--------------------------------')
-            print(serializer)
-            print(request.user)
             serializer.save(user=request.user)
-            print('저장완료')
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
@@ -42,6 +38,7 @@ def community_detail(request, community_pk):
     
     if request.method == 'GET':
         serializer = CommunitySerializer(community)
+        print('여기 가는디이디이디이')
         return Response(serializer.data)
 
     elif request.method == 'DELETE':
@@ -54,5 +51,21 @@ def community_detail(request, community_pk):
             serializer.save(user=request.user)
             return Response(serializer.data)
 
-# @api_view(['GET'])
-# def comment_list(request,commuty_pk):
+@api_view(['GET', 'POST'])
+def comment_list(request,community_pk):
+    if request.method == 'GET':
+        comments = Comment.objects.filter(community_id=community_pk)
+        serializer = CommentSerializer(comments, many=True)
+        return Response(serializer.data)
+    
+    elif request.method == 'POST':
+        print('post는 받아주니?')
+        print(request.data)
+        community = Community.objects.get(pk=community_pk)
+        serializer = CommentSerializer(data=request.data)
+        print(serializer)
+        if serializer.is_valid(raise_exception=True):
+            print('여기까지는 가니?')
+            serializer.save(community=community, user=request.user)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        print('여기까지는 가니?2222222')

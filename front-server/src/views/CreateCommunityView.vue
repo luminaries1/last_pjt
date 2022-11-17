@@ -1,9 +1,9 @@
 <template>
   <div>
     <form @submit.prevent="createCommunity">
-      <label for="title">title  </label>
+      <label for="title">제목  </label>
       <input type="text" id="title" v-model.trim="title"><br>
-      <label for="content">content  </label>
+      <label for="content">내용  </label>
       <textarea type="text" id="content" v-model="content"></textarea>
       <input type="submit">
     </form> 

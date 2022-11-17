@@ -12,16 +12,39 @@
 </template>
 <!-- <router-link :to="{ name: 'DetailMovie', params: {id: movie.id} }">[Detail]</router-link> -->
 <script>
+import axios from 'axios'
+const API_URL = 'http://127.0.0.1:8000'
+
 export default {
   name: 'UpdateCommunityView',
   data() {
     return {
-      id: this.$route.params.id,
-      title: this.$route.params.title,
-      content: this.$route.params.content,
+      id: null,
+      title: null,
+      content: null,
     }
   },
+  created(){
+    this.getCommuityDetail()
+  },
   methods:{
+    getCommuityDetail() {
+      axios({
+        method: 'get',
+        url: `${API_URL}/community/${this.$route.params.id}/`,
+        headers: {
+            Authorization : `Token ${this.$store.state.token}`
+          },
+      })
+        .then((res) => {
+          this.id = res.data.id
+          this.title = res.data.title
+          this.content = res.data.content
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
     updateCommunity() {
       const id = this.id
       const title = this.title
