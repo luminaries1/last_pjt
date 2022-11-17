@@ -1,15 +1,16 @@
 <template>
-  <div>
-    <h5>{{ community.id }}</h5>
-    <p>제목: {{ community.title }}</p>
-    <p>내용: {{ community.title }}</p>
-    <button @click="deleteCommunity">Delete</button>
-    <hr>
-  </div>
+  <tr >
+    <td>{{ community.id }}</td>
+    <td @click="detailCommunityView">{{ community.title }}</td>
+    <td>{{ community.content }}</td>
+      <!-- <h5>{{ community.id }}</h5>
+      <p>제목: {{ community.title }}</p>
+      <p>내용: {{ community.content }}</p> -->
+    <!-- <td><router-link  :to="{ name: 'DetailCommunityView', params: {id: community.id}}">[Detail]</router-link></td> -->
+  </tr>
 </template>
+<!-- <router-link :to="{ name: 'DetailMovie', params: {id: movie.id} }">[Detail]</router-link> -->
 <script>
-import axios from 'axios'
-const API_URL = 'http://127.0.0.1:8000'
 
 export default {
   name: 'CommunityListItem',
@@ -18,28 +19,26 @@ export default {
   },
   data(){
     return{
-      community_pk: this.community.id
     }
   },
   // ------------------------------------여기 만들다 끝남---------------------
   methods: {
-    deleteCommunity() {
-      axios({
-        method: 'DELETE',
-        url: `${API_URL}/community/${ this.community.id }/`,
-        headers: {
-            Authorization : `Token ${this.$store.state.token}`
-          },
-      })
-        .then(() => {
-          // console.log('성공')
-          this.$store.dispatch('getCommunitys')
-        })
-    }
+    detailCommunityView() {
+      this.$router.push({name: 'DetailCommunityView', params: {id: this.community.id}})
+    },
   }
 }
 </script>
 
 <style>
+table tr {
+  height: 2rem;
+  text-align: center;
+  border-bottom: 1px solid #505050;
+}
 
+table tr td {
+  padding: 1rem 0;
+  font-size: 1.1rem;
+}
 </style>

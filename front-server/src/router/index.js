@@ -17,6 +17,8 @@ import LogInView from '@/views/LogInView'
 // 게시판을 위한 vue
 import CommunityView from '@/views/CommunityView'
 import CreateCommunityView from'@/views/CreateCommunityView'
+import UpdateCommunityView from '@/views/UpdateCommunityView'
+import DetailCommunityView from '@/views/DetailCommunityView'
 
 Vue.use(VueRouter)
 
@@ -71,6 +73,16 @@ const routes = [
     name: 'CreateCommunityView',
     component: CreateCommunityView,
   },
+  {
+    path: '/updatecommunity',
+    name: 'UpdateCommunityView',
+    component: UpdateCommunityView
+  },
+  {
+    path: '/detailcommunity',
+    name: 'DetailCommunityView',
+    component: DetailCommunityView
+  }
 ]
 
 const router = new VueRouter({

@@ -7,7 +7,7 @@ class CommunityListSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class CommunitySerializer(serializers.ModelSerializer):
-    # username = serializers.CharField(source='user.username', read_only=True)
+    username = serializers.CharField(source='user.username', read_only=True)
     class Meta:
         model = Community
         fields = '__all__'
