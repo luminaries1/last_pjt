@@ -41,6 +41,14 @@ export default new Vuex.Store({
     },
     GET_COMMUNITYS(state, communitys){
       state.communitys = communitys
+    },
+    UPDATE_COMMUNITY(state, community){
+      state.communitys = state.communitys.map((item) => {
+        if (item.id == community.id){
+          item = community
+        }
+        return item
+      })
     }
   },
   actions: {
@@ -137,6 +145,25 @@ export default new Vuex.Store({
         console.log(err.request)
       })
     },
+    updateCommunity(context, payload){
+      axios({
+        method: 'put',
+        url: `${API_URL}/community/${payload.id}/`,
+        data: {
+          title: payload.title,
+          content: payload.content,
+        },
+        headers: {
+          Authorization : `Token ${context.state.token}`
+        }
+      })
+       .then((res) => {
+        context.commit('UPDATE_COMMUNITY', res.data)
+       })
+       .catch((err) => {
+        console.log(err)
+       })
+    }
   },
   modules: {
   }
