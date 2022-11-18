@@ -1,13 +1,13 @@
 <template>
-    <div>
-      <div class="card" style="width: 18rem;" @click="clickCard">
+    <div class="d-flex-row justify-content-center align-items-center">
+      <div class="card" style="width: 18rem; height: 33rem;" @click="clickCard">
         <img :src="moviePosterUrl" class="card-img-top" alt="movies_image">
         <div class="card-body">
             <h5 class="card-title">{{ movie?.title }}</h5>
             <p class="card-text"></p>
         </div>
       </div>
-      <hr>
+      <hr class="border border-success border-1 opacity-75" style="width: 18rem;">
     </div>
   </template>
   
