@@ -22,6 +22,7 @@ export default {
   },
   created() {
     this.getCommunitys()
+    this.getCommentAll()
   },
   methods: {
     getCommunitys() {
@@ -32,6 +33,9 @@ export default {
       //   alert('Please Login')
       //   this.$router.push({name: 'LogInView'})
       // }
+    },
+    getCommentAll() {
+      this.$store.dispatch('getCommentAll')
     }
   }
 }

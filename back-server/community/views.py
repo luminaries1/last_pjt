@@ -64,6 +64,13 @@ def comment_list(request,community_pk):
             serializer.save(community=community, user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
+@api_view(['GET'])
+def community_comment(request):
+    comments = get_list_or_404(Comment)
+    serializer = CommentSerializer(comments, many=True)
+    return Response(serializer.data)
+
+
 @api_view(['GET', 'DELETE', 'PUT'])
 def comment_detail(request, comment_pk):
     print(request.data)
@@ -81,10 +88,9 @@ def comment_detail(request, comment_pk):
         print('--------------------------------')
         print('넘어옵니다용')
         print(request.data)
-        
-        community = Community.objects.get(pk=request.data)
-        # serializer = CommentSerializer(comment, data=request.data.content)
-        # print(serializer)
-        # if serializer.is_valid(raise_exception=True):
-        #     serializer.save(user=request.user, community=community)
-        #     return Response(serializer.data)
+        community = Community.objects.get(pk=request.data['community_pk'])
+        serializer = CommentSerializer(comment, data=request.data.content)
+        print(serializer)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save(user=request.user, community=community)
+            return Response(serializer.data)

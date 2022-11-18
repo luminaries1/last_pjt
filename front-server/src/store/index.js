@@ -22,7 +22,8 @@ export default new Vuex.Store({
     movies : [
     ],
     communitys : [],
-    keyword: null
+    keyword: null,
+    communityComments : [],
 
   },
   getters: {
@@ -37,6 +38,11 @@ export default new Vuex.Store({
     },
     getMoviesLength(state){
       return parseInt(state.movies.length/6) +1
+    },
+    getComment: (state) => (id) => {
+      return state.communityComments.filter((item) => {
+        return item.community == id
+      })
     }
   },
   mutations: {
@@ -75,6 +81,15 @@ export default new Vuex.Store({
     UPDATE_KEYWORD(state, keyword){
       state.keyword = keyword
     },
+    DELETE_COMMUNITY(state, id) {
+      console.log(state.communityComments)
+      state.communitys = state.communitys.filter((item) => {
+        return item.id != id
+      })
+    },
+    GET_COMMENT(state, comments){
+      state.communityComments = comments
+    }
   },
   actions: {
     getArticles(context) {
@@ -178,6 +193,21 @@ export default new Vuex.Store({
       .catch((err) => {
         console.log(err.request)
       })
+    },
+    getCommentAll(context){
+      axios({
+        method: 'get',
+        url: `${API_URL}/community/comments`,
+        headers: {
+          Authorization : `Token ${context.state.token}`
+        }
+      })
+        .then((res) => {
+          context.commit('GET_COMMENT', res.data)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     },
     updateCommunity(context, payload){
       axios({
