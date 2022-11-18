@@ -1,8 +1,7 @@
 <template>
 <div>
-    <h1>Detail</h1>
     <hr>
-    <div class="card" style="width: 18rem;">
+    <div class="card" style="width: 50rem;">
         <img :src="moviePosterUrl" class="card-img-top" alt="movies_image">
         <div class="card-body">
             <h5 class="card-title">{{ movie?.title }}</h5>
@@ -12,10 +11,10 @@
             <p class="card-text">Score: {{ movie?.score }} </p>
             <p class="card-text"> {{ movie?.description }} </p>
             <p class="card-text"></p>
-            <form @submit.prevent="updateMovie">
+            <!-- <form @submit.prevent="updateMovie">
                 <p> <a href="" class="btn btn-primary">update</a> <input class="btn btn-danger" type="submit"
                 value="delete"></p>
-            </form>
+            </form> -->
         </div>
     </div>
     

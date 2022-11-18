@@ -1,14 +1,13 @@
 <template>
-    <div class="article-list">
-      <h3>Movie List</h3>
-      <div class="row">
+    <div>
+      <div class="row mx-0 px-0">
         <MovieListItem 
         v-for="movie in movies.slice(0,3)"
         :key="movie.id"
         :movie ="movie" 
         class="col-3 mx-4"/> 
       </div>
-      <div class="row">
+      <div class="row mx-0 px-0">
         <MovieListItem 
         v-for="movie in movies.slice(3,6)"
         :key="movie.id"

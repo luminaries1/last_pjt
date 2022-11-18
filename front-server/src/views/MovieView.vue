@@ -1,21 +1,16 @@
 <template>
-    <div>
-      <h1>Movie Page</h1>
-      <!-- <router-link :to="{ name : 'CreateMovieView' }">[CREATE]</router-link> -->
-
-      <div class="row">
+    <div class="movieview mt-5 mx-0 px-0">
+      <div class="row mx-0">
         <SideBar class="col-2"/>
         <MovieList class="col-10" :pageNum="pageNum"/>
       </div>
       <hr>
-      <div class="row">
-        <div class="col-2"></div>
-        <div class="row col-10">
-        <button v-for="(num, index) in pageArr" :key="index" class="btn btn-secondary col-1 mx-1" @click="changePage(num)">{{ num }}</button>
+      <div class="row pb-4">
+        <div class="col-2 mx-4 ps-4"></div>
+        <div class="row col-8">
+        <button v-for="(num, index) in pageArr" :key="index" class="btn btn-outline-primary col-1 mx-1" data-bs-toggle="button" aria-pressed="true" @click="changePage(num)">{{ num }}</button>
         </div>
-      </div>
-
-      
+      </div>      
     </div>
   </template>
   
@@ -76,5 +71,9 @@
     }
   }
   </script>
+ 
   <style>
+   .movieview{
+    width: 99%;
+   }
   </style>
