@@ -8,9 +8,9 @@
       <div class="row pb-4">
         <div class="col-2 mx-4 ps-4"></div>
         <div class="row col-8">
-        <button v-for="(num, index) in pageArr" :key="index" class="btn btn-outline-primary col-1 mx-1" data-bs-toggle="button" aria-pressed="true" @click="changePage(num)">{{ num }}</button>
+        <button v-for="(num, index) in pageArr" :key="index" class="btn btn-outline-success button-border col-1 mx-1" @click="changePage(num)" :aria-checked="isChecked(num)">{{ num }}</button>
         </div>
-      </div>      
+      </div>
     </div>
   </template>
   
@@ -35,7 +35,8 @@
     computed:{
       isLogin() {
         return this.$store.getters.isLogin
-      }
+      },
+      
     },
     created() {
       this.getMovies()
@@ -66,6 +67,9 @@
           this.pageArr = _.range(this.pageNum-1,maxShowPage-1)
 
         }
+      },
+      isChecked(index) {
+        return index == this.pageNum
       }
       
     }
@@ -75,5 +79,8 @@
   <style>
    .movieview{
     width: 99%;
+   }
+   .button-border{
+    border-radius: 2em;
    }
   </style>

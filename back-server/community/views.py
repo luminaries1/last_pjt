@@ -80,10 +80,11 @@ def comment_detail(request, comment_pk):
     elif request.method == 'PUT':
         print('--------------------------------')
         print('넘어옵니다용')
-        # print(request.data)
-        # community = Community.objects.get(pk=request.data.community_pk)
-        serializer = CommentSerializer(comment, data=request.data.content)
-        print(serializer)
+        print(request.data)
+        
+        community = Community.objects.get(pk=request.data)
+        # serializer = CommentSerializer(comment, data=request.data.content)
+        # print(serializer)
         # if serializer.is_valid(raise_exception=True):
         #     serializer.save(user=request.user, community=community)
         #     return Response(serializer.data)

@@ -1,12 +1,12 @@
 <template>
   <div id="app">
-    <nav class="navbar sticky-top mx-0 px-0">
+    <nav class="navbar navbar-border sticky-top text-bg-primary mx-0 px-0">
       <div class="row container-fluid d-flex justify-content-between">
         <div class="col-6 d-flex justify-content-start">
           <h5 class = "mx-3 mt-2 fw-bold">{{ getUserName }} </h5>
           <form class="d-flex">
-            <input class="mx-3" type="search" placeholder="검색" aria-label="Search" v-model="searchContent">
-            <button class="btn btn-outline-success" @click.prevent="clickSearch">검색</button>
+            <input class="mx-3 border-radius" type="search" placeholder="검색" aria-label="Search" v-model="searchContent">
+            <button class="btn btn-outline-success" @click.prevent="clickSearch"><i class="fa-solid fa-magnifying-glass"></i></button>
           </form> 
 
         </div>
@@ -75,16 +75,28 @@ nav {
   background-color: #ffffff;
 }
 
+input::-webkit-input-placeholder{
+  background-image: url(https://cdn1.iconfinder.com/data/icons/hawcons/32/698627-icon-111-search-256.png) ;
+  background-size: contain;
+  background-position:  1px center;
+  background-repeat: no-repeat;
+  text-align: center;
+  text-indent: 0;
+}
+
 nav a {
   font-weight: bold;
   color: #2c3e50;
   text-decoration-line: none;
+  background-color: transparent;
+  color: #e0e0e0;
 }
 
 nav a.router-link-exact-active {
   color: #42b983;
   text-decoration-line: none;
 }
+
 
 .modal {
   width: 250px;
@@ -95,6 +107,16 @@ nav a.router-link-exact-active {
   border-radius: 2%;
   background-color: #e0e0e0;
 }
+.navbar-border {
+  border: 2px solid #129b79;
+  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+  border-radius: 2em;
+}
+
+.border-radius {
+  border-radius: 2em;
+}
+
 .fade-enter {
   opacity: 0;
 }
