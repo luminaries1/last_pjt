@@ -38,7 +38,6 @@ def community_detail(request, community_pk):
     
     if request.method == 'GET':
         serializer = CommunitySerializer(community)
-        print('여기 가는디이디이디이')
         return Response(serializer.data)
 
     elif request.method == 'DELETE':
@@ -59,13 +58,26 @@ def comment_list(request,community_pk):
         return Response(serializer.data)
     
     elif request.method == 'POST':
-        print('post는 받아주니?')
-        print(request.data)
         community = Community.objects.get(pk=community_pk)
         serializer = CommentSerializer(data=request.data)
-        print(serializer)
         if serializer.is_valid(raise_exception=True):
-            print('여기까지는 가니?')
             serializer.save(community=community, user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        print('여기까지는 가니?2222222')
+
+@api_view(['GET', 'DELETE', 'PUT'])
+def comment_detail(request,comment_pk):
+    comment = get_object_or_404(Comment, pk=comment_pk)
+
+    if request.method == 'GET':
+        serializer = CommentSerializer(comment)
+        return Response(serializer.data)
+
+    elif request.method == 'DELETE':
+        comment.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    
+    elif request.method == 'PUT':
+        serializer = CommentSerializer(comment, data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save(user=request.user)
+            return Response(serializer.data)

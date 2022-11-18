@@ -19,7 +19,7 @@
         </div>
       </div>
     </nav>
-    <router-view ref="MovieView"/>
+    <router-view ref="MovieView" />
   </div>
 </template>
 

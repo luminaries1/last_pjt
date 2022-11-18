@@ -7,7 +7,7 @@ urlpatterns = [
     path('community-list/', views.community_list),
     path('<int:community_pk>/', views.community_detail),
     path('<int:community_pk>/comments/', views.comment_list),
-    # path('<int:community_pk>/comments/detail/', views.comment_detail),
+    path('comments/<int:comment_pk>/', views.comment_detail),
     # path('community/<int:community_pk>/comments/', views.comment_create),
 
     # # # 필수작성

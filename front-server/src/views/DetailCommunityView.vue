@@ -5,6 +5,7 @@
     <p>내용: {{ community?.content }}</p>
     <button @click="deleteCommunity">Delete</button>
     <button @click="updateCommunity">Update</button>
+    <button @click="returnCommunityView">Back</button>
     <br>
     <hr>
     <br>
@@ -17,9 +18,12 @@
       </form>
       <hr>
     </div>
-    <CommunityCommentItem v-for="comment in comments"
+    <CommunityCommentItem 
+    :community="community"
+    v-for="comment in comments"
     :key="comment.id"
     :comment="comment"
+    @delete-comment = "deleteComment"
     />
   </div>
 </template>
@@ -108,6 +112,24 @@ export default {
           .then(() => {
             this.getCommunityComment()
             this.content = null
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+      },
+      returnCommunityView(){
+        this.$router.push({ name: 'CommunityView' })
+      },
+      deleteComment(commentId){
+        axios({
+          method: 'delete',
+          url: `${API_URL}/community/comments/${ commentId }/`,
+          headers: {
+              Authorization : `Token ${this.$store.state.token}`
+          },
+        })
+          .then(() => {
+            this.getCommunityComment()
           })
           .catch((err) => {
             console.log(err)
