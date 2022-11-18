@@ -8,7 +8,7 @@
       <div class="row pb-4">
         <div class="col-2 mx-4 ps-4"></div>
         <div class="row col-8">
-        <button v-for="(num, index) in pageArr" :key="index" class="btn btn-outline-success button-border col-1 mx-1" @click="changePage(num)" :aria-checked="isChecked(num)">{{ num }}</button>
+        <button v-for="(num, index) in pageArr" :key="index" class="btn btn-outline-success button-border col-1 mx-1" :class="{ active : isChecked(num) }" @click="changePage(num)">{{ num }}</button>
         </div>
       </div>
     </div>
