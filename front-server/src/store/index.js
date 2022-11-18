@@ -74,7 +74,7 @@ export default new Vuex.Store({
     },
     UPDATE_KEYWORD(state, keyword){
       state.keyword = keyword
-    }
+    },
   },
   actions: {
     getArticles(context) {
@@ -193,6 +193,26 @@ export default new Vuex.Store({
       })
        .then((res) => {
         context.commit('UPDATE_COMMUNITY', res.data)
+       })
+       .catch((err) => {
+        console.log(err)
+       })
+    },
+    updateComment(context, payload){
+      axios({
+        method: 'put',
+        url: `${API_URL}/community/comments/${payload.commentId}/`,
+        data: {
+          comment_pk : payload.commentId,
+          community_pk : payload.communityId,
+          content : payload.content
+        },
+        headers: {
+          Authorization : `Token ${context.state.token}`
+        }
+      })
+      .then(() => {
+        console.log('성공')
        })
        .catch((err) => {
         console.log(err)
