@@ -20,7 +20,7 @@
     </div>
     <CommunityCommentItem 
     :community="community"
-    v-for="comment in comments"
+    v-for="comment in getComment()"
     :key="comment.id"
     :comment="comment"
     @delete-comment = "deleteComment"
@@ -43,9 +43,13 @@ export default {
       comments: null,
       content: null,
     }
-  } ,
+  },
+  computed:{
+
+  },
   created(){
     this.getCommunityDetail()
+    // this.getComment()
     
   },
   methods:{
@@ -56,14 +60,18 @@ export default {
       })
         .then((res) => {
           this.community = res.data
-          this.getCommunityComment()
+          // this.getCommunityComment()
         })
         .catch((err) => {
           console.log(err)
         })
     },
-
+    getComment(){
+      console.log(this.community.id)
+      return this.$store.getters.getComment(this.community.id)
+    },
     deleteCommunity() {
+      this.$store.commit('DELETE_COMMUNITY', this.community.id)
       axios({
         method: 'delete',
         url: `${API_URL}/community/${ this.community.id }/`,
@@ -72,7 +80,6 @@ export default {
           },
       })
         .then(() => {
-          // console.log('성공')
           this.$router.push({ name: 'CommunityView' })
         })
     },
@@ -82,21 +89,21 @@ export default {
         params: {id: this.community.id},
       })
     },
-    getCommunityComment() {
-      axios({
-        method: 'get',
-        url: `${API_URL}/community/${this.community.id}/comments/`,
-        headers: {
-            Authorization : `Token ${this.$store.state.token}`
-          },
-      })
-        .then((res) => {
-          this.comments = res.data
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-      },
+    // getCommunityComment() {
+    //   axios({
+    //     method: 'get',
+    //     url: `${API_URL}/community/${this.community.id}/comments/`,
+    //     headers: {
+    //         Authorization : `Token ${this.$store.state.token}`
+    //       },
+    //   })
+    //     .then((res) => {
+    //       this.comments = res.data
+    //     })
+    //     .catch((err) => {
+    //       console.log(err)
+    //     })
+    // },
       createComment() {
         const content = this.content
         axios({
@@ -110,7 +117,8 @@ export default {
           }
         })
           .then(() => {
-            this.getCommunityComment()
+            // this.getCommunityComment()
+            this.getComment()
             this.content = null
           })
           .catch((err) => {
