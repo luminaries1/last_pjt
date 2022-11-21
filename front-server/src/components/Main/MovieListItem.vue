@@ -1,7 +1,7 @@
 <template>
     <div class="d-flex-row justify-content-center align-items-center">
       <div class="card" style="width: 18rem; height: 33rem;" @click="clickCard">
-        <img :src="moviePosterUrl" class="card-img-top" alt="movies_image">
+        <img :src="moviePosterUrl" class="card-img-top" style="height : 27rem" alt="movies_image">
         <div class="card-body">
             <h5 class="card-title">{{ movie?.title }}</h5>
             <p class="card-text"></p>

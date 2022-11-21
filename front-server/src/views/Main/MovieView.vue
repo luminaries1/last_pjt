@@ -35,8 +35,7 @@
     computed:{
       isLogin() {
         return this.$store.getters.isLogin
-      },
-      
+      },      
     },
     created() {
       this.getMovies()
@@ -60,6 +59,8 @@
         this.pageNum = num
         const maxPage = this.$store.getters.getMoviesLength
         const maxShowPage = Math.min(this.pageNum +10 , maxPage)
+
+        console.log(maxPage)
         if (num == 1){
 
           this.pageArr = _.range(this.pageNum,maxShowPage)
@@ -72,7 +73,7 @@
         return index == this.pageNum
       }
       
-    }
+    },
   }
   </script>
  

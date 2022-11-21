@@ -1,12 +1,18 @@
 <template>
   <div class="container d-flex justify-content-center align-items-center">
-    <div class="community-box position-relative">
+    <div class="community-box">
       <h1 class="text-dark my-4">COMMUNITY</h1>
       <CommunityList />
-      <router-link :to="{ name: 'CreateCommunityView' }" class="btn btn-outline-success button-border position-absolute bottom-0 end-0 m-4">Create</router-link>
+      <button class="btn btn-outline-success">1</button>
+      <button class="btn btn-outline-success">2</button>
+      <button class="btn btn-outline-success">3</button>
+      <button class="btn btn-outline-success">4</button>
+      <button class="btn btn-outline-success">5</button>
+      <router-link :to="{ name: 'CreateCommunityView' }" class="btn btn-outline-success button-border m-4">Create</router-link>
     </div>
   </div>
 </template>
+
 
 <script>
 import CommunityList from '@/components/Community/CommunityList.vue';
@@ -55,4 +61,6 @@ export default {
   border: 2px solid #129b79;
   border-radius: 1em ;
 }
+
+
 </style>

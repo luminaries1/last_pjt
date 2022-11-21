@@ -13,6 +13,7 @@ from django.shortcuts import get_object_or_404, get_list_or_404
 from .serializers import ArticleListSerializer, ArticleSerializer, CommentSerializer , MovieListSerializer , MovieSerializer , CommentMovieSerializer
 import requests
 from .models import Movie, Comment
+from django.db.models import Q
 
 
 movie_genre_dic = { 'Action' :28,  'Adventure': 12,'Animation' : 16,'Comedy':35,'Crime':80,'Documentary':99,'Drama':18,'Family':10751,'Fantasy':14,'History':36,'Horror':27,'Music'       :    10402,'Mystery'     :    9648,'Romance'     :    10749,'Science Fiction' : 878,'TV Movie'    :    10770,'Thriller'    :    53,'War'         :    10752,'Western'     :    37 }
@@ -81,6 +82,28 @@ def movie_list(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
+@api_view(['GET'])
+def movie_related(request, movie_pk):
+    movie = get_object_or_404(Movie, pk=movie_pk)
+    genres = movie.genre
+    splited_genre = genres.split(',')
+    real_genres = []
+
+    for genre in splited_genre:
+        tmp_genre = genre.strip()
+        if tmp_genre:
+            real_genres.append(tmp_genre)
+
+    related_movies_set = set()
+
+    for genre in real_genres:
+        related_movies_set.update(Movie.objects.filter(Q(genre__contains=genre), ~Q(id=movie_pk)))
+    # related_movies = Movie.objects.filter(genre__contains=genres)
+    related_movies = list(related_movies_set)
+    sorted_results = sorted(related_movies, key = lambda x : -x.score )
+    serializer = MovieListSerializer(sorted_results[:5], many=True)
+    return Response(serializer.data)
+
 
 @api_view(['GET', 'DELETE', 'PUT'])
 def movie_detail(request, movie_pk):
@@ -103,7 +126,7 @@ def movie_detail(request, movie_pk):
 @api_view(['GET'])
 def movie_keyword(request, movie_keyword):
     if request.method == 'GET':
-        movies = get_list_or_404(Movie, title__contains=f'{movie_keyword}' , description__contains =f'{movie_keyword}' )
+        movies = get_list_or_404(Movie, Q(title__contains=f'{movie_keyword}') | Q(description__contains =f'{movie_keyword}') )
         serializer = MovieListSerializer(movies, many= True)
         return Response(serializer.data)
 
