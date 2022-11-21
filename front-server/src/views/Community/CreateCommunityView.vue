@@ -22,6 +22,11 @@ export default {
       content: null,
     }
   },
+  computed : {
+    isLogin() {
+      return this.$store.getters.isLogin
+    }
+  },
   methods: {
     createCommunity() {
       const title = this.title
@@ -43,12 +48,12 @@ export default {
             Authorization : `Token ${this.$store.state.token}`
           },
       })
-        .then((res) => {
-          console.log(res)
+        .then(() => {
+          // console.log(res)
           this.$router.push({name : 'CommunityView'})
         })
         .catch((err) => {
-          console.log('안됨안됨')
+          // console.log('안됨안됨')
           console.log(err)
         })
     }

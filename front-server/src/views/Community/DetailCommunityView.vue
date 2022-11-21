@@ -19,11 +19,12 @@
       <hr>
     </div>
     <CommunityCommentItem 
-    :community="community"
-    v-for="comment in getComment()"
+    v-for="comment in comments"
     :key="comment.id"
     :comment="comment"
+    :community="community"
     @delete-comment = "deleteComment"
+    @get-comment = "getCommunityComment"
     />
   </div>
 </template>
@@ -45,12 +46,13 @@ export default {
     }
   },
   computed:{
-
+    getComments() {
+      return this.$store.state.comments
+    }
   },
   created(){
     this.getCommunityDetail()
-    // this.getComment()
-    
+    this.getCommunityComment()
   },
   methods:{
     getCommunityDetail() {
@@ -60,16 +62,12 @@ export default {
       })
         .then((res) => {
           this.community = res.data
-          // this.getCommunityComment()
         })
         .catch((err) => {
           console.log(err)
         })
     },
-    getComment(){
-      console.log(this.community.id)
-      return this.$store.getters.getComment(this.community.id)
-    },
+
     deleteCommunity() {
       this.$store.commit('DELETE_COMMUNITY', this.community.id)
       axios({
@@ -83,65 +81,76 @@ export default {
           this.$router.push({ name: 'CommunityView' })
         })
     },
+
     updateCommunity() {
       this.$router.push({
         name : 'UpdateCommunityView', 
         params: {id: this.community.id},
       })
     },
-    // getCommunityComment() {
-    //   axios({
-    //     method: 'get',
-    //     url: `${API_URL}/community/${this.community.id}/comments/`,
-    //     headers: {
-    //         Authorization : `Token ${this.$store.state.token}`
-    //       },
-    //   })
-    //     .then((res) => {
-    //       this.comments = res.data
-    //     })
-    //     .catch((err) => {
-    //       console.log(err)
-    //     })
-    // },
-      createComment() {
-        const content = this.content
-        axios({
-          method: 'POST',
-          url:`${API_URL}/community/${this.community.id}/comments/`,
-          headers: {
+
+    getCommunityComment() {
+      // const id = this.$route.params.id
+      // const payload = {
+      //   id
+      // }
+      // this.$store.dispatch('getComments', payload)
+
+      axios({
+        method: 'get',
+        url: `${API_URL}/community/${this.$route.params.id}/comments/`,
+        headers: {
             Authorization : `Token ${this.$store.state.token}`
           },
-          data: {
-            content: content
-          }
+      })
+        .then((res) => {
+          // console.log(res.data)
+          this.comments = res.data
         })
-          .then(() => {
-            // this.getCommunityComment()
-            this.getComment()
-            this.content = null
-          })
-          .catch((err) => {
-            console.log(err)
-          })
-      },
-      returnCommunityView(){
-        this.$router.push({ name: 'CommunityView' })
-      },
-      deleteComment(commentId){
-        axios({
-          method: 'delete',
-          url: `${API_URL}/community/comments/${ commentId }/`,
-          headers: {
-              Authorization : `Token ${this.$store.state.token}`
-          },
+        .catch((err) => {
+          console.log(err)
         })
-          .then(() => {
-            this.getCommunityComment()
-          })
-          .catch((err) => {
-            console.log(err)
-          })
+    },
+
+    createComment() {
+      const content = this.content
+      axios({
+        method: 'POST',
+        url:`${API_URL}/community/${this.community.id}/comments/`,
+        headers: {
+          Authorization : `Token ${this.$store.state.token}`
+        },
+        data: {
+          content: content
+        }
+      })
+        .then(() => {
+          this.getCommunityComment()
+          this.content = null
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+
+    returnCommunityView(){
+      this.$router.push({ name: 'CommunityView' })
+    },
+
+    deleteComment(commentId){
+      axios({
+        method: 'delete',
+        url: `${API_URL}/community/comments/${ commentId }/`,
+        headers: {
+            Authorization : `Token ${this.$store.state.token}`
+        },
+      })
+        .then(() => {
+          this.getCommunityComment()
+        })
+        .catch((err) => {
+          console.log(err)
+        })
       }
     }
   }

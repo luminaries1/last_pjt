@@ -22,7 +22,7 @@ export default {
   },
   created() {
     this.getCommunitys()
-    this.getCommentAll()
+    // this.getCommentAll()
   },
   methods: {
     getCommunitys() {
@@ -34,9 +34,9 @@ export default {
       //   this.$router.push({name: 'LogInView'})
       // }
     },
-    getCommentAll() {
-      this.$store.dispatch('getCommentAll')
-    }
+    // getCommentAll() {
+    //   this.$store.dispatch('getCommentAll')
+    // }
   }
 }
 </script>

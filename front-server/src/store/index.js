@@ -23,7 +23,7 @@ export default new Vuex.Store({
     ],
     communitys : [],
     keyword: null,
-    communityComments : [],
+    comments : [],
 
   },
   getters: {
@@ -39,11 +39,12 @@ export default new Vuex.Store({
     getMoviesLength(state){
       return parseInt(state.movies.length/6) +1
     },
-    getComment: (state) => (id) => {
-      return state.communityComments.filter((item) => {
-        return item.community == id
-      })
-    }
+    // -- 게시판 각각의 댓글 받아오는 기능 --
+    // getComment: (state) => (id) => {
+    //   return state.communityComments.filter((item) => {
+    //     return item.community == id
+    //   })
+    // }
   },
   mutations: {
     GET_ARTICLES(state, articles){
@@ -54,7 +55,7 @@ export default new Vuex.Store({
     },
     SAVE_TOKEN(state, token){
       state.token = token
-      console.log(state.token)
+      // console.log(state.token)
       router.push({ name:'MovieView' })
     },
     OUT_TOKEN(state){
@@ -82,14 +83,11 @@ export default new Vuex.Store({
       state.keyword = keyword
     },
     DELETE_COMMUNITY(state, id) {
-      console.log(state.communityComments)
       state.communitys = state.communitys.filter((item) => {
         return item.id != id
       })
     },
-    GET_COMMENT(state, comments){
-      state.communityComments = comments
-    }
+
   },
   actions: {
     getArticles(context) {
@@ -136,7 +134,6 @@ export default new Vuex.Store({
     },
     signUp(context, payload) {
       context.commit('SET_USERNAME', payload.username)
-      console.log(payload)
       
       axios({
         method : 'post',
@@ -194,21 +191,7 @@ export default new Vuex.Store({
         console.log(err.request)
       })
     },
-    getCommentAll(context){
-      axios({
-        method: 'get',
-        url: `${API_URL}/community/comments`,
-        headers: {
-          Authorization : `Token ${context.state.token}`
-        }
-      })
-        .then((res) => {
-          context.commit('GET_COMMENT', res.data)
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-    },
+
     updateCommunity(context, payload){
       axios({
         method: 'put',
@@ -228,26 +211,31 @@ export default new Vuex.Store({
         console.log(err)
        })
     },
-    updateComment(context, payload){
-      axios({
-        method: 'put',
-        url: `${API_URL}/community/comments/${payload.commentId}/`,
-        data: {
-          comment_pk : payload.commentId,
-          community_pk : payload.communityId,
-          content : payload.content
-        },
-        headers: {
-          Authorization : `Token ${context.state.token}`
-        }
-      })
-      .then(() => {
-        console.log('성공')
-       })
-       .catch((err) => {
-        console.log(err)
-       })
-    }
+
+    // getComment(context, payload){
+
+    // }
+    
+    // updateComment(context, payload){
+    //   axios({
+    //     method: 'put',
+    //     url: `${API_URL}/community/comments/${payload.commentId}/`,
+    //     data: {
+    //       comment_pk : payload.commentId,
+    //       community_pk : payload.communityId,
+    //       content : payload.content
+    //     },
+    //     headers: {
+    //       Authorization : `Token ${context.state.token}`
+    //     }
+    //   })
+    //   .then(() => {
+    //     console.log('성공')
+    //    })
+    //    .catch((err) => {
+    //     console.log(err)
+    //    })
+    // }
   },
   modules: {
   }

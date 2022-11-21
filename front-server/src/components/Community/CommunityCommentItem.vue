@@ -15,8 +15,8 @@
 </template>
 
 <script>
-// import axios from 'axios'
-// const API_URL = 'http://127.0.0.1:8000'
+import axios from 'axios'
+const API_URL = 'http://127.0.0.1:8000'
 
 export default {
   name: 'CommunityCommentItem',
@@ -38,16 +38,28 @@ export default {
       this.$emit('delete-comment', this.comment.id)
     },
     updateCommunityComment() {
-      const communityId = this.community.id
-      const commentId = this.comment.id
-      const content = this.content
-
-      const payload = {
-        communityId,
-        commentId,
-        content
-      }
-      this.$store.dispatch('updateComment', payload)
+      // const communityId = this.community.id
+      // const commentId = this.comment.id
+      // const content = this.content
+      axios({
+        method: 'put',
+        url: `${API_URL}/community/comments/${ this.comment.id }/`,
+        data:{
+          // comment_pk : this.comment.id,
+          community_pk : this.community.id,
+          content : this.content
+        },
+        headers: {
+            Authorization : `Token ${this.$store.state.token}`
+        },
+      })
+        .then(() => {
+          this.flagChange()
+          this.$emit('get-comment', this.comment.id)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     }
   }
 }
