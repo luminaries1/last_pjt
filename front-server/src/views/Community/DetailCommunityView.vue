@@ -28,7 +28,7 @@
   </div>
 </template>
 <script>
-import CommunityCommentItem from '@/components/CommunityCommentItem.vue'
+import CommunityCommentItem from '@/components/Community/CommunityCommentItem.vue'
 import axios from 'axios'
 const API_URL = 'http://127.0.0.1:8000'
 

@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import CommunityList from '@/components/CommunityList.vue';
+import CommunityList from '@/components/Community/CommunityList.vue';
 
 
 export default {

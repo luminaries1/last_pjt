@@ -15,8 +15,8 @@
   </template>
   
   <script>
-  import MovieList from '@/components/MovieList.vue';
-  import SideBar from '@/components/SideBar.vue';
+  import MovieList from '@/components/Main/MovieList.vue';
+  import SideBar from '@/components/Main/SideBar.vue';
   import _ from "lodash";
 
 
