@@ -45,6 +45,13 @@ export default new Vuex.Store({
     },
     getPartOfCommunitys: (state) => (index) => {
       return state.communitys.slice((index-1)*9, index*9)
+    },
+
+    getCommentsLength(state) {
+      return parseInt(state.comments.length/6) + 1
+    },
+    getPartOfComments: (state) => (index) => {
+      return state.comments.slice((index-1)*6, index*6)
     }
   },
   mutations: {
@@ -88,6 +95,9 @@ export default new Vuex.Store({
         return item.id != id
       })
     },
+    GET_COMMENTS(state, comments) {
+      state.comments = comments
+    }
 
   },
   actions: {
@@ -212,6 +222,28 @@ export default new Vuex.Store({
         console.log(err)
        })
     },
+
+    getComments(context,id){
+      axios({
+        method: 'get',
+        url: `${ API_URL }/community/${ id }/comments`,
+        headers:{
+          Authorization: `Token ${context.state.token}`
+        }
+      })
+        .then((res) => {
+          context.commit('GET_COMMENTS', res.data)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
+
+
+
+
+
+
 
     // getComment(context, payload){
 

@@ -19,18 +19,21 @@
       <hr>
     </div>
     <CommunityCommentItem 
-    v-for="comment in comments"
+    v-for="comment in getComments"
     :key="comment.id"
     :comment="comment"
     :community="community"
     @delete-comment = "deleteComment"
     @get-comment = "getCommunityComment"
     />
+    <button v-for="(num,index) in pageArr" :key="index" class="btn btn-outline-success button-border col-1 mx-1" :class="{ active : isChecked(num) }" @click="changePage(num)">{{ num }}</button>
   </div>
 </template>
 <script>
 import CommunityCommentItem from '@/components/Community/CommunityCommentItem.vue'
 import axios from 'axios'
+import _ from "lodash"
+
 const API_URL = 'http://127.0.0.1:8000'
 
 export default {
@@ -43,6 +46,8 @@ export default {
       community: null,
       comments: null,
       content: null,
+      pageNum: 1,
+      pageArr: []
     }
   },
   computed:{
@@ -102,29 +107,36 @@ export default {
     },
 
     getCommunityComment() {
+      this.$store.dispatch('getComments', this.$route.params.id)
+      const maxPage = this.$store.getters.getCommentsLength
+      const maxShowPage = Math.min(this.PageNum+6, maxPage)
+      console.log(maxPage,maxShowPage)
+      this.pageArr = _.range(this.pageNum,maxShowPage+1)
+      console.log(this.pageArr)
       // const id = this.$route.params.id
       // const payload = {
       //   id
       // }
       // this.$store.dispatch('getComments', payload)
 
-      axios({
-        method: 'get',
-        url: `${API_URL}/community/${this.$route.params.id}/comments/`,
-        headers: {
-            Authorization : `Token ${this.$store.state.token}`
-          },
-      })
-        .then((res) => {
-          // console.log(res.data)
-          this.comments = res.data
-        })
-        .catch((err) => {
-          console.log(err)
-        })
+      // axios({
+      //   method: 'get',
+      //   url: `${API_URL}/community/${this.$route.params.id}/comments/`,
+      //   headers: {
+      //       Authorization : `Token ${this.$store.state.token}`
+      //     },
+      // })
+      //   .then((res) => {
+      //     // console.log(res.data)
+      //     this.comments = res.data
+      //   })
+      //   .catch((err) => {
+      //     console.log(err)
+      //   })
     },
-
+// -------------------------여기까지 만들었음-----------------------------
     createComment() {
+
       const content = this.content
       axios({
         method: 'POST',
