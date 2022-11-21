@@ -1,18 +1,28 @@
 <template>
-  <div>
-    <h1>Sign Up Page</h1>
-    <form @submit.prevent="signUp">
-      <label for="username">username : </label>
-      <input type="text" id="username" v-model="username"><br>
+  <div class="login-box d-flex justify-content-center align-items-center">
+    <div>
+      <h1>Sign Up Page</h1>
+      <form @submit.prevent="signUp" class="position-relative">
+        <div class="position-relative end-0 my-3">
+          <label for="username" class="fw-bold mx-4">username : </label>
+          <input type="text" id="username" v-model="username" class="button-input"><br>
+        </div>
 
-      <label for="password1"> password : </label>
-      <input type="password" id="password1" v-model="password1"><br>
 
-      <label for="password2"> password confirmation : </label>
-      <input type="password" id="password2" v-model="password2">
-      
-      <input type="submit" value="SignUp">
-    </form>
+        <div class="position-relative end-0 my-3">
+          <label for="password1" class="fw-bold mx-4"> password : </label>
+          <input type="password" id="password1" v-model="password1" class="button-input"><br>
+        </div>
+
+        <div class="position-relative end-0 my-3">
+          <label for="password2" class="fw-bold mx-4"> password confirmation : </label>
+          <input type="password" id="password2" v-model="password2" class="button-input">
+        </div>
+        
+        <input type="submit" value="SignUp" class="btn btn-outline-success button-border">
+      </form>
+
+    </div>
   </div>
 </template>
 
@@ -40,3 +50,26 @@ export default {
   }
 }
 </script>
+
+<style>
+.login-box {
+  height: 55em;
+}
+
+form {
+  color: #e0e0e0;
+}
+
+h1 {
+  color: #e0e0e0;
+}
+
+.button-border{
+    border-radius: 2em;
+}
+
+.button-input {
+  border-radius: 2em;
+}
+
+</style>
