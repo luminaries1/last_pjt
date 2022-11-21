@@ -141,6 +141,7 @@ export default new Vuex.Store({
       })
       .then((res) => {
         context.commit('GET_MOVIES', res.data)
+        router.push({name: 'MovieView', params: { isSearch : 10 }}).catch(()=>{})
       })
     },
     signUp(context, payload) {

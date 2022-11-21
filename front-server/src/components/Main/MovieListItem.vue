@@ -3,7 +3,7 @@
       <div class="card" style="width: 18rem; height: 33rem;" @click="clickCard">
         <img :src="moviePosterUrl" class="card-img-top" style="height : 27rem" alt="movies_image">
         <div class="card-body">
-            <h5 class="card-title">{{ movie?.title }}</h5>
+            <h5 class="card-title text-black">{{ movie?.title }}</h5>
             <p class="card-text"></p>
         </div>
       </div>
@@ -34,6 +34,5 @@
   </script>
   
   <style>
-  
   </style>
   

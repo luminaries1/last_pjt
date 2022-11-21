@@ -63,7 +63,6 @@ def comment_list(request,community_pk):
         print(community_pk)
         community = Community.objects.get(pk=community_pk)
         serializer = CommentSerializer(data=request.data)
-        print(serializer)
         if serializer.is_valid(raise_exception=True):
             serializer.save(community=community, user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)

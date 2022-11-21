@@ -48,10 +48,9 @@
       clickSearch() {
         if (this.searchContent){
           this.$store.dispatch('getKeywordMovies', this.searchContent)
-          this.$refs.MovieView.changePage(1)
         }
         else{
-          this.$store.dispatch('getMovies')
+          this.$refs.MovieView.getMovies()
         }
       }
     } 
