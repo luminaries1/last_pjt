@@ -60,6 +60,8 @@ def comment_list(request,community_pk):
     elif request.method == 'POST':
         community = Community.objects.get(pk=community_pk)
         serializer = CommentSerializer(data=request.data)
+        print(community)
+        print(serializer)
         if serializer.is_valid(raise_exception=True):
             serializer.save(community=community, user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
