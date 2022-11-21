@@ -1,21 +1,25 @@
 <template>
 <div>
-    <hr>
-    <div class="card" style="width: 50rem;">
-        <img :src="moviePosterUrl" class="card-img-top" alt="movies_image">
-        <div class="card-body">
-            <h5 class="card-title">{{ movie?.title }}</h5>
-            <p class="card-text">Audience: {{ movie?.audience }}</p>
-            <p class="card-text">Release Date: {{ movie?.release_date }} </p>
-            <p class="card-text">Genre: {{ movie?.genre }} </p>
-            <p class="card-text">Score: {{ movie?.score }} </p>
-            <p class="card-text"> {{ movie?.description }} </p>
-            <p class="card-text"></p>
-            <!-- <form @submit.prevent="updateMovie">
-                <p> <a href="" class="btn btn-primary">update</a> <input class="btn btn-danger" type="submit"
-                value="delete"></p>
-            </form> -->
+    <hr class="hr-border">
+    <div class="d-flex detail-box justify-content-evenly mt-5">
+      <div class="ms-5" style="width: 30rem; height: 20rem">
+          <img :src="moviePosterUrl" class="card-img-top" alt="movies_image">
+      </div>
+      <div class="body-box me-5">
+        
+        <div class="related-box">
+
         </div>
+        <hr class="hr-border">
+        <h5 class="card-title">{{ movie?.title }}</h5>
+        <p class="card-text">Audience: {{ movie?.audience }}</p>
+        <p class="card-text">Release Date: {{ movie?.release_date }} </p>
+        <p class="card-text">Genre: {{ movie?.genre }} </p>
+        <p class="card-text">Score: {{ movie?.score }} </p>
+        <p class="card-text"> {{ movie?.description }} </p>
+        <p class="card-text"></p>
+      </div>
+
     </div>
     
 
@@ -31,6 +35,7 @@
         </ul>
     </div>
     <p><a class="btn btn-warning" href="">BACK</a></p> -->
+    <router-link :to="{ name: 'MovieView' }" class="btn btn-outline-success button-border m-4 position-absolute bottom-0 end-0">BACK</router-link>
 </div>
 
 </template>
@@ -71,4 +76,30 @@
     }
   }
   </script>
+
+<style>
+  .detail-box {
+    height: 53em;
+  }
+
+  .card-text{
+    color: #e0e0e0;
+  }
+
+  .card-title{
+    color: #e0e0e0;
+  }
+
+  .body-box {
+    width : 60rem;
+  }
+  .related-box {
+    width : 60rem;
+    height : 25rem;
+  }
+
+  .hr-border {
+    border: 1px solid #129b79;
+  }
+  </style>
   

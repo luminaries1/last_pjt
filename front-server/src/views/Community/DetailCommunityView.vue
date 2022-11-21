@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <div class="container">
     <h1>Detail</h1>
     {{ community}}
     <p>제목: {{ community?.title }}</p>
     <p>내용: {{ community?.content }}</p>
-    <button v-if="isUser" @click="deleteCommunity">Delete</button>
-    <button v-if="isUser" @click="updateCommunity">Update</button>
-    <button @click="returnCommunityView">Back</button>
+    <button v-if="isUser" @click="deleteCommunity" class="btn btn-outline-success button-border mx-2">Delete</button>
+    <button v-if="isUser" @click="updateCommunity" class="btn btn-outline-success button-border mx-2">Update</button>
+    <button @click="returnCommunityView" class="btn btn-outline-success button-border mx-2">Back</button>
     <br>
     <hr>
     <br>
@@ -15,7 +15,7 @@
       <form @submit.prevent="createComment">
         <label for="content">내용</label>
         <textarea type="text" id="content" v-model="content"></textarea>
-        <input type="submit">
+        <input type="submit" class="btn btn-outline-success button-border ms-3">
       </form>
       <hr>
     </div>
@@ -171,5 +171,21 @@ export default {
 </script>
 
 <style>
+.container {
+  min-height : 55em;
+}
+
+p {
+  color: #e0e0e0;
+}
+
+h3 {
+  color: #e0e0e0;
+}
+
+hr {
+  border: 1px solid #129b79;
+}
+
 
 </style>
