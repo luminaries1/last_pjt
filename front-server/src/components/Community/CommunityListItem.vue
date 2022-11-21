@@ -3,10 +3,6 @@
     <td>{{ community.id }}</td>
     <td @click="detailCommunityView">{{ community.title }}</td>
     <td>{{ community.content }}</td>
-      <!-- <h5>{{ community.id }}</h5>
-      <p>제목: {{ community.title }}</p>
-      <p>내용: {{ community.content }}</p> -->
-    <!-- <td><router-link  :to="{ name: 'DetailCommunityView', params: {id: community.id}}">[Detail]</router-link></td> -->
   </tr>
 </template>
 <!-- <router-link :to="{ name: 'DetailMovie', params: {id: movie.id} }">[Detail]</router-link> -->
@@ -31,7 +27,7 @@ export default {
 </script>
 
 <style>
-table tr {
+/* table tr {
   height: 2rem;
   text-align: center;
   border-bottom: 1px solid #505050;
@@ -40,5 +36,5 @@ table tr {
 table tr td {
   padding: 1rem 0;
   font-size: 1.1rem;
-}
+} */
 </style>

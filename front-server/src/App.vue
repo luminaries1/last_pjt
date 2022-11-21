@@ -47,11 +47,10 @@
       },
       clickSearch() {
         if (this.searchContent){
-          this.$refs.MovieView.changePage(1)
           this.$store.dispatch('getKeywordMovies', this.searchContent)
         }
         else{
-          this.$store.dispatch('getMovies')
+          this.$refs.MovieView.getMovies()
         }
       }
     } 

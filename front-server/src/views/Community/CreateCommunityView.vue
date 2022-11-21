@@ -7,6 +7,7 @@
       <textarea type="text" id="content" v-model="content"></textarea>
       <input type="submit">
     </form> 
+    <button @click="returnCommunityView" class="btn btn-outline-success button-border mx-2">Back</button>
   </div>
 </template>
 
@@ -20,6 +21,11 @@ export default {
     return{
       title: null,
       content: null,
+    }
+  },
+  computed : {
+    isLogin() {
+      return this.$store.getters.isLogin
     }
   },
   methods: {
@@ -43,15 +49,20 @@ export default {
             Authorization : `Token ${this.$store.state.token}`
           },
       })
-        .then((res) => {
-          console.log(res)
+        .then(() => {
+          // console.log(res)
           this.$router.push({name : 'CommunityView'})
         })
         .catch((err) => {
-          console.log('안됨안됨')
+          // console.log('안됨안됨')
           console.log(err)
         })
-    }
+    },
+    
+    returnCommunityView(){
+      this.$router.push({ name: 'CommunityView' })
+    },
+
   }
 }
 </script>
