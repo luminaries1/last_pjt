@@ -1,10 +1,11 @@
 <template>
   <div>
     <h1>Detail</h1>
+    {{ community}}
     <p>제목: {{ community?.title }}</p>
     <p>내용: {{ community?.content }}</p>
-    <button @click="deleteCommunity">Delete</button>
-    <button @click="updateCommunity">Update</button>
+    <button v-if="isUser" @click="deleteCommunity">Delete</button>
+    <button v-if="isUser" @click="updateCommunity">Update</button>
     <button @click="returnCommunityView">Back</button>
     <br>
     <hr>
@@ -48,6 +49,13 @@ export default {
   computed:{
     getComments() {
       return this.$store.state.comments
+    },
+    isUser(){
+      if(this.$store.state.userName === this.community.username){
+        return true
+      }else{
+        return false
+      }
     }
   },
   created(){
@@ -83,10 +91,15 @@ export default {
     },
 
     updateCommunity() {
-      this.$router.push({
+      if(this.$store.state.userName === this.community.username){
+        this.$router.push({
         name : 'UpdateCommunityView', 
         params: {id: this.community.id},
       })
+      }else{
+        alert('사용자가 다릅니다.')
+      }
+
     },
 
     getCommunityComment() {

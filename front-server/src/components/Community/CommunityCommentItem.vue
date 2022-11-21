@@ -1,7 +1,7 @@
 <template>
   <div>
     <p>{{ comment?.content }}</p>
-    <button @click="flagChange">수정</button>
+    <button v-if="isUser" @click="flagChange">수정</button>
     <div v-if="flag">
       <form @submit.prevent="updateCommunityComment">
         <label for="content">내용</label>
@@ -9,7 +9,7 @@
         <input type="submit">
       </form>
     </div>
-    <button @click.prevent="deleteCommunityComment">삭제</button>
+    <button v-if="isUser" @click.prevent="deleteCommunityComment">삭제</button>
     <hr>
   </div>
 </template>
@@ -24,6 +24,15 @@ export default {
     return{
       flag: false,
       content: this.comment.content
+    }
+  },
+  computed:{
+    isUser(){
+      if(this.$store.state.userName === this.comment.username){
+        return true
+      }else{
+        return false
+      }
     }
   },
   props:{
