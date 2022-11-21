@@ -39,12 +39,13 @@ export default new Vuex.Store({
     getMoviesLength(state){
       return parseInt(state.movies.length/6) +1
     },
-    // -- 게시판 각각의 댓글 받아오는 기능 --
-    // getComment: (state) => (id) => {
-    //   return state.communityComments.filter((item) => {
-    //     return item.community == id
-    //   })
-    // }
+
+    getCommunitysLength(state) {
+      return parseInt(state.communitys.length/9)+1
+    },
+    getPartOfCommunitys: (state) => (index) => {
+      return state.communitys.slice((index-1)*9, index*9)
+    }
   },
   mutations: {
     GET_ARTICLES(state, articles){

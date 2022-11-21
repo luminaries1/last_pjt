@@ -1,7 +1,6 @@
 <template>
   <div class="container">
     <h1>Detail</h1>
-    {{ community}}
     <p>제목: {{ community?.title }}</p>
     <p>내용: {{ community?.content }}</p>
     <button v-if="isUser" @click="deleteCommunity" class="btn btn-outline-success button-border mx-2">Delete</button>

@@ -1,17 +1,21 @@
 <template>
   <div>
-    <table>
-      <tr>
-        <th>NO</th>
-        <th>제목</th>
-        <th>내용</th>
-        <!-- <th>detail</th> -->
-      </tr>
+    <table class="table table-bordered black-border">
+      <thead>
+        <tr>
+          <th>NO</th>
+          <th>제목</th>
+          <th>내용</th>
+          <!-- <th>detail</th> -->
+        </tr>
+      </thead>
+      <tbody>
         <CommunityListItem 
-        v-for="community in communitys"
-        :key="community.id"
-        :community="community"
+          v-for="community in communitys"
+          :key="community.id"
+          :community="community"
         />
+      </tbody>
     </table>  
   </div>
 </template>
@@ -24,9 +28,12 @@ export default {
   components: {
     CommunityListItem
   },
+  props:{
+    pageNum: Number
+  },
   computed:{
     communitys() {
-      return this.$store.state.communitys
+      return this.$store.getters.getPartOfCommunitys(this.pageNum)
     }
   }
 }
@@ -47,5 +54,9 @@ table tr {
 table tr td {
   padding: 1rem 0;
   font-size: 1.1rem;
+}
+
+.black-border{
+  border : 1px solid #129b79;
 }
 </style>

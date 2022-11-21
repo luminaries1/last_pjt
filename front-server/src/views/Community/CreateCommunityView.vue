@@ -7,6 +7,7 @@
       <textarea type="text" id="content" v-model="content"></textarea>
       <input type="submit">
     </form> 
+    <button @click="returnCommunityView" class="btn btn-outline-success button-border mx-2">Back</button>
   </div>
 </template>
 
@@ -56,7 +57,12 @@ export default {
           // console.log('안됨안됨')
           console.log(err)
         })
-    }
+    },
+    
+    returnCommunityView(){
+      this.$router.push({ name: 'CommunityView' })
+    },
+
   }
 }
 </script>

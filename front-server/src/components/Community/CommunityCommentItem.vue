@@ -1,7 +1,7 @@
 <template>
   <div>
-    <p>{{ comment?.content }}</p>
-    <button v-if="isUser" @click="flagChange">수정</button>
+    <span>{{ comment?.content }}</span>
+    <button v-if="isUser" @click="flagChange" class="btn btn-outline-success button-border mx-2">수정</button>
     <div v-if="flag">
       <form @submit.prevent="updateCommunityComment">
         <label for="content">내용</label>
@@ -9,7 +9,7 @@
         <input type="submit">
       </form>
     </div>
-    <button v-if="isUser" @click.prevent="deleteCommunityComment">삭제</button>
+    <button v-if="isUser" @click.prevent="deleteCommunityComment" class="btn btn-outline-success button-border mx-2">삭제</button>
     <hr>
   </div>
 </template>
@@ -75,5 +75,7 @@ export default {
 </script>
 
 <style>
-
+span {
+  color: #e0e0e0;
+}
 </style>
