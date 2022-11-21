@@ -18,10 +18,6 @@
         <p class="card-text">Score: {{ movie?.score }} </p>
         <p class="card-text"> {{ movie?.description }} </p>
         <p class="card-text"></p>
-        <!-- <form @submit.prevent="updateMovie">
-                        <p> <a href="" class="btn btn-primary">update</a> <input class="btn btn-danger" type="submit"
-                        value="delete"></p>
-                    </form> -->
       </div>
 
     </div>
@@ -39,6 +35,7 @@
         </ul>
     </div>
     <p><a class="btn btn-warning" href="">BACK</a></p> -->
+    <router-link :to="{ name: 'MovieView' }" class="btn btn-outline-success button-border m-4 position-absolute bottom-0 end-0">BACK</router-link>
 </div>
 
 </template>
