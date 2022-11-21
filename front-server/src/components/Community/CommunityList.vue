@@ -41,7 +41,7 @@ table {
 table tr {
   height: 2rem;
   text-align: center;
-  border-bottom: 1px solid #505050;
+  border-bottom: 1px solid #129b79;
 }
 
 table tr td {
