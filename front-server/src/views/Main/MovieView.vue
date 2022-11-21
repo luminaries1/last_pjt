@@ -59,13 +59,14 @@
       changePage(num) {
         this.pageNum = num
         const maxPage = this.$store.getters.getMoviesLength
-        const maxShowPage = Math.min(this.pageNum +10 , maxPage)
+        const maxShowPage = Math.min(this.pageNum +10, maxPage)
         if (num == 1){
-
           this.pageArr = _.range(this.pageNum,maxShowPage)
-        }else{
+        }else if(num+9 > maxPage){
+          this.pageArr = _.range(this.pageNum-1,maxShowPage+1)
+        }
+        else{
           this.pageArr = _.range(this.pageNum-1,maxShowPage-1)
-
         }
       },
       isChecked(index) {

@@ -1,19 +1,26 @@
 <template>
   <div class="container d-flex justify-content-center align-items-center">
-    <div class="community-box position-relative">
+    <div class="community-box">
       <h1 class="text-dark my-4">COMMUNITY</h1>
-      <CommunityList />
-      <router-link :to="{ name: 'CreateCommunityView' }" class="btn btn-outline-success button-border position-absolute bottom-0 end-0 m-4">Create</router-link>
+      <CommunityList :pageNum="pageNum" />
+      <button v-for="(num, index) in pageArr" :key="index" class="btn btn-outline-success button-border col-1 mx-1" :class="{ active : isChecked(num) }" @click="changePage(num)">{{ num }}</button>
+      <router-link :to="{ name: 'CreateCommunityView' }" class="btn btn-outline-success button-border">Create</router-link>
     </div>
   </div>
 </template>
 
 <script>
 import CommunityList from '@/components/Community/CommunityList.vue';
-
+import _ from "lodash"
 
 export default {
 	name: 'CommunityView',
+  data(){
+    return{
+      pageNum : 1,
+      pageArr : []
+    }
+  },
   components: {
     CommunityList
   },
@@ -28,17 +35,28 @@ export default {
   },
   methods: {
     getCommunitys() {
-      // if(this.isLogin)
-      // {
         this.$store.dispatch('getCommunitys')
-      // }else{
-      //   alert('Please Login')
-      //   this.$router.push({name: 'LogInView'})
-      // }
+        const maxPage = this.$store.getters.getCommunitysLength
+        const maxShowPage = Math.min(this.pageNum+6, maxPage)
+        console.log(maxPage, maxShowPage)
+        this.pageArr = _.range(this.pageNum,maxShowPage+1)
+        console.log(this.pageArr)
     },
-    // getCommentAll() {
-    //   this.$store.dispatch('getCommentAll')
-    // }
+    changePage(num) {
+        this.pageNum = num
+        const maxPage = this.$store.getters.getCommunitysLength
+        const maxShowPage = Math.min(this.pageNum+6, maxPage)
+        if (num == 1){
+          this.pageArr = _.range(this.pageNum,maxShowPage+1)
+        }else if(num+5 > maxPage){
+          this.pageArr = _.range(this.pageNum-1, maxShowPage+1)
+        }else{
+          this.pageArr = _.range(this.pageNum-1, maxShowPage-1)
+        }
+    },
+    isChecked(index) {
+      return index == this.pageNum
+    }
   }
 }
 </script>
