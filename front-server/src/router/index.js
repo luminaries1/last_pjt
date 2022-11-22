@@ -28,59 +28,59 @@ const routes = [
     name: 'MovieView',
     component: MovieView
   },
- 
+  
   // {
-  //   path: '/create',
-  //   name: 'CreateView',
+    //   path: '/create',
+    //   name: 'CreateView',
   //   component: CreateView
   // },
-
+  
   {
     path: '/create',
     name: 'CreateMovieView',
     component: CreateMovieView
   },
-
+  
   {
     path: '/signup',
     name: 'SignUpView',
     component: SignUpView
   },
-
+  
   {
     path: '/login',
     name: 'LogInView',
     component: LogInView
   },
-
+  
   // {
-  //   path: '/:id',
-  //   name: 'DetailView',
-  //   component: DetailView,
-  // },
-  {
-    path: '/community',
-    name: 'CommunityView',
-    component: CommunityView,
-  },
-  {
-    path: '/community/create',
-    name: 'CreateCommunityView',
-    component: CreateCommunityView,
-  },
-  {
-    path: '/community/:id/update',
-    name: 'UpdateCommunityView',
-    component: UpdateCommunityView
-  },
-  {
-    path: '/community/:id',
-    name: 'DetailCommunityView',
-    component: DetailCommunityView
-  },
-  {
-    path: '/:id',
-    name: 'DetailMovie',
+    //   path: '/:id',
+    //   name: 'DetailView',
+    //   component: DetailView,
+    // },
+    {
+      path: '/community',
+      name: 'CommunityView',
+      component: CommunityView,
+    },
+    {
+      path: '/community/create',
+      name: 'CreateCommunityView',
+      component: CreateCommunityView,
+    },
+    {
+      path: '/community/:id/update',
+      name: 'UpdateCommunityView',
+      component: UpdateCommunityView
+    },
+    {
+      path: '/community/:id',
+      name: 'DetailCommunityView',
+      component: DetailCommunityView
+    },
+    {
+      path: '/:id',
+      name: 'DetailMovie',
     component: DetailMovie,
   },  
 ]

@@ -54,6 +54,11 @@ export default new Vuex.Store({
     },
     getPartOfComments: (state) => (index) => {
       return state.comments.slice((index-1)*6, index*6)
+    },
+    getDetailCommunity: (state) => (id) => {
+      return state.communitys.filter((community) => {
+        return community.id == id
+      }) 
     }
   },
   mutations: {

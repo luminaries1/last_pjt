@@ -1,13 +1,25 @@
 <template>
-  <div>
-    <h1>UpdateCommunity</h1>
-    <form @submit.prevent="updateCommunity">
-      <label for="title">제목  </label>
-      <input type="text" id="title" v-model.trim="title"><br>
-      <label for="content">내용  </label>
-      <textarea type="text" id="content" v-model="content"></textarea>
-      <input type="submit">
-    </form> 
+  <div class="container d-flex justify-content-center align-items-center">
+    <div class="community-box ">
+      <form @submit.prevent>
+        <div class="m-4 d-flex bd-highlight row">
+          <span class="d-flex flex-row">
+            <label for="title" class="form-label mb-3 d-flex text-start fs-2">Title</label>
+            <button @click="returnCommunityView" class="btn btn-outline-success button-border ms-auto mb-4">Back</button>
+          </span>
+            <input type="text" id="title" class="input-height form-fontrol" v-model.trim="title"><br>
+        </div>
+        <hr class="hr-width my-3">
+        <div class="m-4 d-flex bd-highlight row">
+          <div></div>
+          <label for="content" class="form-label mb-3 text-start fs-2">Content</label>
+          <textarea class="form-control" type="text" id="content" rows="11" style="border-radius: 1em;" v-model="content"></textarea>
+          <span class="d-flex row m-0 p-0" style="text-align:center">
+            <button type="submit" @click="updateCommunity" class="btn btn-outline-success button-border mt-4">Submit</button>
+          </span>
+        </div>
+      </form> 
+    </div>
   </div>
 </template>
 <!-- <router-link :to="{ name: 'DetailMovie', params: {id: movie.id} }">[Detail]</router-link> -->
@@ -56,8 +68,11 @@ export default {
         content
       }
       this.$store.dispatch('updateCommunity', payload)
-      this.$router.push({ name: 'CommunityView' })
-    }
+      this.$router.go(-1)
+    },
+    returnCommunityView(){
+      this.$router.go(-1)
+    },
   }
 }
 </script>

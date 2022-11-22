@@ -1,10 +1,12 @@
 <template>
   <div class="container d-flex justify-content-center align-items-center">
     <div class="community-box">
-      <h1 class="text-dark my-4">COMMUNITY</h1>
-      <CommunityList :pageNum="pageNum" />
-      <button v-for="(num, index) in pageArr" :key="index" class="btn btn-outline-success button-border col-1 mx-1" :class="{ active : isChecked(num) }" @click="changePage(num)">{{ num }}</button>
-      <router-link :to="{ name: 'CreateCommunityView' }" class="btn btn-outline-success button-border">Create</router-link>
+      <span class="mx-4 mt-4 mb-3 d-flex flex-row">
+        <h1 class="d-flex text-start ms-3 fs-2">COMMUNITY</h1>
+        <p class="ms-auto" style="text-align:center"><router-link :to="{ name: 'CreateCommunityView' }" class="btn btn-outline-success button-border">Create</router-link></p>
+      </span>
+      <CommunityList :pageNum="pageNum"/>
+      <button v-for="(num, index) in pageArr" :key="index" class="mt-2 btn btn-outline-success button-border col-1 mx-1" :class="{ active : isChecked(num) }" @click="changePage(num)">{{ num }}</button>
     </div>
   </div>
 </template>
@@ -19,7 +21,7 @@ export default {
   data(){
     return{
       pageNum : 1,
-      pageArr : []
+      pageArr : [],
     }
   },
   components: {
@@ -67,11 +69,16 @@ export default {
   height : 55em;
 }
 
+h1 {
+  color: #e0e0e0;
+}
+
+
 .community-box {
   height: 40em;
   width: 55em;
-  background-color: #e0e0e0;;
-  border: 2px solid #129b79;
+  background-color: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+  border: 4px solid #129b79;
   border-radius: 1em ;
 }
 

@@ -52,7 +52,6 @@ def community_detail(request, community_pk):
 
 @api_view(['GET', 'POST'])
 def comment_list(request,community_pk):
-    print('here?')
     if request.method == 'GET':
         comments = Comment.objects.filter(community_id = community_pk)
         # comments = get_list_or_404(Comment, community_id=community_pk)
@@ -63,8 +62,10 @@ def comment_list(request,community_pk):
         print(community_pk)
         community = Community.objects.get(pk=community_pk)
         serializer = CommentSerializer(data=request.data)
+        print(serializer)
         if serializer.is_valid(raise_exception=True):
             serializer.save(community=community, user=request.user)
+            print('되나요?')
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 # @api_view(['GET'])
