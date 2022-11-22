@@ -1,11 +1,11 @@
 <template>
-  <div>
-    <table class="table table-bordered black-border">
+  <div class="table-responsive">
+    <table class="table table-bordered black-border table-hover" style="table-layout: fixed">
       <thead>
         <tr>
-          <th>NO</th>
-          <th>제목</th>
-          <th>내용</th>
+          <th class="writer">Writer</th>
+          <th class="title">Title</th>
+          <th class="content">Content</th>
           <!-- <th>detail</th> -->
         </tr>
       </thead>
@@ -54,6 +54,20 @@ table tr {
 table tr td {
   padding: 1rem 0;
   font-size: 1.1rem;
+}
+
+.table-hover tbody tr:hover td{
+  background-color: #129b79;
+}
+
+th.writer {
+  width: 100px;
+}
+th.title {
+  width: 500px;
+}
+th.content {
+  width: 250px;
 }
 
 .black-border{

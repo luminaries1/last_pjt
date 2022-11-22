@@ -1,32 +1,34 @@
 <template>
-  <div class="container">
-    <h1>Detail</h1>
-    <p>제목: {{ community?.title }}</p>
-    <p>내용: {{ community?.content }}</p>
-    <button v-if="isUser" @click="deleteCommunity" class="btn btn-outline-success button-border mx-2">Delete</button>
-    <button v-if="isUser" @click="updateCommunity" class="btn btn-outline-success button-border mx-2">Update</button>
-    <button @click="returnCommunityView" class="btn btn-outline-success button-border mx-2">Back</button>
-    <br>
-    <hr>
-    <br>
-    <div>
-      <h3>Comment</h3>
-      <form @submit.prevent="createComment">
-        <label for="content">내용</label>
-        <textarea type="text" id="content" v-model="content"></textarea>
-        <input type="submit" class="btn btn-outline-success button-border ms-3">
-      </form>
-      <hr>
+  <div class="container d-flex justify-content-center align-items-center">
+    <div class="community-box">
+        <h1>Detail</h1>
+        <p>제목: {{ community?.title }}</p>
+        <p>내용: {{ community?.content }}</p>
+        <button v-if="isUser" @click="deleteCommunity" class="btn btn-outline-success button-border mx-2">Delete</button>
+        <button v-if="isUser" @click="updateCommunity" class="btn btn-outline-success button-border mx-2">Update</button>
+        <button @click="returnCommunityView" class="btn btn-outline-success button-border mx-2">Back</button>
+        <br>
+        <hr>
+        <br>
+        <div>
+          <h3>Comment</h3>
+          <form @submit.prevent="createComment">
+            <label for="content">내용</label>
+            <textarea type="text" id="content" v-model="content"></textarea>
+            <input type="submit" class="btn btn-outline-success button-border ms-3">
+          </form>
+        <hr>
+      </div>
+      <CommunityCommentItem 
+      v-for="comment in getComments"
+      :key="comment.id"
+      :comment="comment"
+      :community="community"
+      @delete-comment = "deleteComment"
+      @get-comment = "getCommunityComment"
+      />
+      <button v-for="(num,index) in pageArr" :key="index" class="btn btn-outline-success button-border col-1 mx-1" :class="{ active : isChecked(num) }" @click="changePage(num)">{{ num }}</button>
     </div>
-    <CommunityCommentItem 
-    v-for="comment in getComments"
-    :key="comment.id"
-    :comment="comment"
-    :community="community"
-    @delete-comment = "deleteComment"
-    @get-comment = "getCommunityComment"
-    />
-    <button v-for="(num,index) in pageArr" :key="index" class="btn btn-outline-success button-border col-1 mx-1" :class="{ active : isChecked(num) }" @click="changePage(num)">{{ num }}</button>
   </div>
 </template>
 <script>
@@ -55,9 +57,15 @@ export default {
       return this.$store.state.comments
     },
     isUser(){
-      if(this.$store.state.userName === this.community.username){
-        return true
-      }else{
+      if(this.community)
+      {
+        if(this.$store.state.userName === this.community.username){
+          return true
+        }else{
+          return false
+        }
+      }
+      else{
         return false
       }
     }
@@ -73,9 +81,11 @@ export default {
         url: `${API_URL}/community/${this.$route.params.id}`
       })
         .then((res) => {
+          console.log('성공')
           this.community = res.data
         })
         .catch((err) => {
+          console.log('실패')
           console.log(err)
         })
     },
@@ -135,8 +145,10 @@ export default {
       //   })
     },
 // -------------------------여기까지 만들었음-----------------------------
+    isChecked(index){ 
+      return index == this.pageNum
+    },
     createComment() {
-
       const content = this.content
       axios({
         method: 'POST',
@@ -196,6 +208,18 @@ h3 {
 
 hr {
   border: 1px solid #129b79;
+}
+
+.container {
+  height : 55em;
+}
+
+.community-box {
+  height: 40em;
+  width: 55em;
+  background-color: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+  border: 4px solid #129b79;
+  border-radius: 1em ;
 }
 
 
