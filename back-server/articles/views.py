@@ -14,7 +14,7 @@ from .serializers import ArticleListSerializer, ArticleSerializer, CommentSerial
 import requests
 from .models import Movie, Comment
 from django.db.models import Q
-
+import datetime
 
 movie_genre_dic = { 'Action' :28,  'Adventure': 12,'Animation' : 16,'Comedy':35,'Crime':80,'Documentary':99,'Drama':18,'Family':10751,'Fantasy':14,'History':36,'Horror':27,'Music'       :    10402,'Mystery'     :    9648,'Romance'     :    10749,'Science Fiction' : 878,'TV Movie'    :    10770,'Thriller'    :    53,'War'         :    10752,'Western'     :    37 }
 
@@ -70,9 +70,71 @@ def movie_list(request):
                 created_by_default_data(tmp_movie_data,request)
 
 
-        movies = get_list_or_404(Movie)
-        serializer = MovieListSerializer(movies, many= True)
-        return Response(serializer.data)
+        if request.GET['year'] == '0' and not request.GET.get('genre'):
+            movies = get_list_or_404(Movie)
+            serializer = MovieListSerializer(movies, many= True)
+            return Response(serializer.data)
+        else:
+            year_index = int(request.GET['year'])
+
+            if request.GET.get('genre'):
+                if year_index == 0:
+                    movies = get_list_or_404(Movie, Q(genre__contains=request.GET['genre']))
+                elif year_index == 1:
+                    min_year = datetime.date(1900, 1, 1)
+                    max_year = datetime.date(2000, 1, 1)
+                    movies = get_list_or_404(Movie, Q(genre__contains=request.GET['genre']), Q(release_date__gte = min_year) , Q(release_date__lte = max_year))
+                elif year_index == 2:
+                    min_year = datetime.date(2000, 1, 1)
+                    max_year = datetime.date(2005, 1, 1)
+                    movies = get_list_or_404(Movie, Q(genre__contains=request.GET['genre']), Q(release_date__gte = min_year) , Q(release_date__lte = max_year))
+                elif year_index == 3:
+                    min_year = datetime.date(2005, 1, 1)
+                    max_year = datetime.date(2010, 1, 1)
+                    movies = get_list_or_404(Movie, Q(genre__contains=request.GET['genre']), Q(release_date__gte = min_year) , Q(release_date__lte = max_year))
+                elif year_index == 4:
+                    min_year = datetime.date(2010, 1, 1)
+                    max_year = datetime.date(2015, 1, 1)
+                    movies = get_list_or_404(Movie, Q(genre__contains=request.GET['genre']), Q(release_date__gte = min_year) , Q(release_date__lte = max_year))
+                elif year_index == 5:
+                    min_year = datetime.date(2015, 1, 1)
+                    max_year = datetime.date(2020, 1, 1)
+                    movies = get_list_or_404(Movie, Q(genre__contains=request.GET['genre']), Q(release_date__gte = min_year) , Q(release_date__lte = max_year))
+                elif year_index == 6:
+                    min_year = datetime.date(2020, 1, 1)
+                    max_year = datetime.date(2023, 1, 1)
+                    movies = get_list_or_404(Movie, Q(genre__contains=request.GET['genre']), Q(release_date__gte = min_year) , Q(release_date__lte = max_year))
+            else:
+                if year_index == 0:
+                    movies = get_list_or_404(Movie)
+                elif year_index == 1:
+                    min_year = datetime.date(1900, 1, 1)
+                    max_year = datetime.date(2000, 1, 1)
+                    movies = get_list_or_404(Movie, Q(release_date__gte = min_year) , Q(release_date__lte = max_year))
+                elif year_index == 2:
+                    min_year = datetime.date(2000, 1, 1)
+                    max_year = datetime.date(2005, 1, 1)
+                    movies = get_list_or_404(Movie, Q(release_date__gte = min_year) , Q(release_date__lte = max_year))
+                elif year_index == 3:
+                    min_year = datetime.date(2005, 1, 1)
+                    max_year = datetime.date(2010, 1, 1)
+                    movies = get_list_or_404(Movie, Q(release_date__gte = min_year) , Q(release_date__lte = max_year))
+                elif year_index == 4:
+                    min_year = datetime.date(2010, 1, 1)
+                    max_year = datetime.date(2015, 1, 1)
+                    movies = get_list_or_404(Movie, Q(release_date__gte = min_year) , Q(release_date__lte = max_year))
+                elif year_index == 5:
+                    min_year = datetime.date(2015, 1, 1)
+                    max_year = datetime.date(2020, 1, 1)
+                    movies = get_list_or_404(Movie, Q(release_date__gte = min_year) , Q(release_date__lte = max_year))
+                elif year_index == 6:
+                    min_year = datetime.date(2020, 1, 1)
+                    max_year = datetime.date(2023, 1, 1)
+                    movies = get_list_or_404(Movie, Q(release_date__gte = min_year) , Q(release_date__lte = max_year))
+            
+            serializer = MovieListSerializer(movies, many=True)
+            return Response(serializer.data)
+
 
     elif request.method == 'POST':
         print(request.data)

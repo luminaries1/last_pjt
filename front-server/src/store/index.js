@@ -24,6 +24,8 @@ export default new Vuex.Store({
     communitys : [],
     keyword: null,
     comments : [],
+    genre : '',
+    year : 0,
 
   },
   getters: {
@@ -97,32 +99,26 @@ export default new Vuex.Store({
     },
     GET_COMMENTS(state, comments) {
       state.comments = comments
+    },
+    UPDATE_GENRE(state, genre){
+      state.genre = genre
+    },
+    UPDATE_YEAR(state, year) {
+      state.year = year
     }
 
   },
   actions: {
-    getArticles(context) {
-      axios({
-        method: 'get',
-        url : `${API_URL}/api/v1/articles/`,
-        headers: {
-          Authorization : `Token ${context.state.token}`
-        }
-      })
-      .then((res) => {
-        // console.log(res, context)
-        context.commit('GET_ARTICLES', res.data)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-    },
     getMovies(context) {
       axios( {
         method: 'get',
         url : `${API_URL}/api/v1/movies/`,
         headers : {
           Authorization : `Token ${context.state.token}`
+        },
+        params : {
+          year : context.state.year,
+          genre : context.state.genre
         }
       })
       .then((res) => {
@@ -137,6 +133,10 @@ export default new Vuex.Store({
         url : `${API_URL}/api/v1/movies/${context.state.keyword}/`,
         headers : {
           Authorization : `Token ${context.state.token}`
+        },
+        params : {
+          year : context.state.year,
+          genre : context.state.genre
         }
       })
       .then((res) => {
