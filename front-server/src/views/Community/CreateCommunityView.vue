@@ -1,5 +1,10 @@
 <template>
   <div class="container d-flex justify-content-center align-items-center">
+    <div>
+      <div class="night">
+          <div v-for="num in arr" :key="num" class="shooting_star" style="cursor: pointer;"></div>
+      </div>
+    </div>
     <div class="community-box ">
       <form @submit.prevent>
         <div class="m-4 d-flex bd-highlight row">
@@ -33,6 +38,7 @@ export default {
     return{
       title: null,
       content: null,
+      arr : [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
     }
   },
   computed : {
@@ -79,7 +85,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .hr-width{
   width: 50em;
   margin-left : auto;
@@ -93,6 +99,8 @@ export default {
 
 .container {
   height : 55em;
+  overflow-x: hidden;
+  overflow-y: hidden ;
 }
 
 .community-box {
@@ -102,4 +110,122 @@ export default {
   border: 4px solid #129b79;
   border-radius: 1em ;
 }
+
+$shooting-time: 3000ms;
+
+     .night {
+       position: relative;
+       width: 100%;
+       height: 100%;  
+       transform: rotateZ(45deg);
+       z-index: 0;
+       // animation: sky 200000ms linear infinite;
+     }
+  
+     .shooting_star {
+       position: absolute;
+       left: 0%;
+       top: 0%;
+       // width: 100px;
+       height: 2px;
+       background: linear-gradient(-45deg, rgba(95, 145, 255, 1), rgba(0, 0, 255, 0));
+       border-radius: 999px;
+       filter: drop-shadow(0 0 6px rgba(105, 155, 255, 1));
+       animation:
+         tail $shooting-time ease-in-out infinite,
+         shooting $shooting-time ease-in-out infinite;
+  
+       &::before {
+         content: '';
+         position: absolute;
+         top: calc(50% - 1px);
+         right: 0;
+         // width: 30px;
+         height: 2px;
+         background: linear-gradient(-45deg, rgba(0, 0, 255, 0), rgba(95, 145, 255, 1), rgba(0, 0, 255, 0));
+         transform: translateX(50%) rotateZ(45deg);
+         border-radius: 100%;
+         animation: shining $shooting-time ease-in-out infinite;
+       }
+  
+       &::after {
+         // CodePen Error
+         // @extend .shooting_star::before;
+  
+         content: '';
+         position: absolute;
+         top: calc(50% - 1px);
+         right: 0;
+         // width: 30px;
+         height: 2px;
+         background: linear-gradient(-45deg, rgba(0, 0, 255, 0), rgba(95, 145, 255, 1), rgba(0, 0, 255, 0));
+         transform: translateX(50%) rotateZ(45deg);
+         border-radius: 100%;
+         animation: shining $shooting-time ease-in-out infinite;
+         transform: translateX(50%) rotateZ(-45deg);
+       }
+  
+       @for $i from 1 through 20 {
+         &:nth-child(#{$i}) {
+           $delay: random(9999)+0ms;
+           top: calc(50% - #{random(4000) - 1500px});
+           left: calc(50% - #{random(1000) + 0px});
+           animation-delay: $delay;
+           // opacity: random(50) / 100 + 0.5;
+  
+           &::before,
+           &::after {
+             animation-delay: $delay;
+           }
+         }
+       }
+     }
+  
+     @keyframes tail {
+       0% {
+         width: 0;
+       }
+  
+       30% {
+         width: 100px;
+       }
+  
+       100% {
+         width: 0;
+       }
+     }
+  
+     @keyframes shining {
+       0% {
+         width: 0;
+       }
+  
+       50% {
+         width: 30px;
+       }
+  
+       100% {
+         width: 0;
+       }
+     }
+  
+     @keyframes shooting {
+       0% {
+         transform: translateX(0);
+       }
+  
+       100% { 
+         transform: translateX(1500px);
+       }
+     }
+  
+     @keyframes sky {
+       0% {
+         transform: rotate(45deg);
+       }
+  
+       100% {
+         transform: rotate(45 + 360deg);
+       }
+     }
 </style>

@@ -1,10 +1,7 @@
 <template>
     <div class="movieview mt-5 mx-0 px-0">
       <div class="night">
-        <div>
-
         <div v-for="num in arr" :key="num" class="shooting_star" @click="getShootingStar" style="cursor: pointer;"></div>
-        </div>
       </div>
       <div class="row mx-0">
         <SideBar class="col-2"/>
@@ -17,12 +14,15 @@
         <button v-for="(num, index) in pageArr" :key="index" class="btn btn-outline-success button-border col-1 mx-1" :class="{ active : isChecked(num) }" @click="changePage(num)">{{ num }}</button>
         </div>
       </div>
+
+      <!-- <ModalView /> -->
     </div>
   </template>
   
 <script>
   import MovieList from '@/components/Main/MovieList.vue';
   import SideBar from '@/components/Main/SideBar.vue';
+  //import ModalView from '@/views/Main/ModalView.vue';
   import _ from "lodash";
 
 
@@ -37,7 +37,7 @@
     },
     components: {
       MovieList,
-      SideBar
+      SideBar,
     },
     computed:{
       isLogin() {
@@ -97,7 +97,7 @@
         return index == this.pageNum
       },
       getShootingStar(){
-        console.log('111')
+        this.$bvModal.show('modal-1')
       }
       
     },
