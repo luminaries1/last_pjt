@@ -1,16 +1,18 @@
 <template>
   <div>
   <div class="d-flex mb-2">
-    <span class="ms-3 me-auto">{{ comment?.content }}</span>
-    <button v-if="isUser" @click="flagChange" class="btn btn-outline-success button-border mx-2 btn-sm">Update</button>
-    <div v-if="flag">
-      <form @submit.prevent="updateCommunityComment">
-        <label for="content">내용</label>
+    <span v-if="!contentFlag" class="ms-3 me-auto">{{ comment?.content }}</span>
+    <div v-show="contentFlag" class="ms-3 me-auto">
+        <input type="text" class="ps-2" v-model="content" style="width: 35em; border-radius:1em;">
+        <button v-if="isUser" @click.stop="contentFlagChange" @click="updateCommunityComment" class="btn btn-outline-success button-border mx-2 btn-sm">submit</button>
+        <!-- <label for="content">내용</label>
         <textarea type="text" id="content" v-model="content"></textarea>
-        <input type="submit">
-      </form>
+        <input type="submit"> -->
     </div>
-    <button v-if="isUser" @click.prevent="deleteCommunityComment" class="btn btn-outline-success button-border mx-2 btn-sm">Delete</button> 
+    <div>
+      <button v-if="isUser" @click.stop="contentFlagChange" @click="flagChange" class="btn btn-outline-success button-border mx-2 btn-sm">Update</button>
+      <button v-if="isUser" @click.prevent="deleteCommunityComment" class="btn btn-outline-success button-border mx-2 btn-sm">Delete</button> 
+    </div>
   </div>
   <hr id="comment-hr">
   </div>
@@ -25,6 +27,7 @@ export default {
   data(){
     return{
       flag: false,
+      contentFlag: false,
       content: this.comment.content
     }
   },
@@ -44,6 +47,9 @@ export default {
   methods:{
     flagChange() {
       this.flag = !this.flag
+    },
+    contentFlagChange(){
+      this.contentFlag = !this.contentFlag
     },
     deleteCommunityComment() {
       this.$emit('delete-comment', this.comment.id)
