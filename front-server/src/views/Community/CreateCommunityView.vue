@@ -12,13 +12,13 @@
             <label for="title" class="form-label mb-3 d-flex text-start fs-2">Title</label>
             <button @click="returnCommunityView" class="btn btn-outline-success button-border ms-auto mb-4">Back</button>
           </span>
-            <input type="text" id="title" class="input-height form-fontrol" v-model.trim="title"><br>
+            <input type="text" id="title" class="input-height form-control px-3 py-1" v-model.trim="title"><br>
         </div>
         <hr class="hr-width my-3">
         <div class="m-4 d-flex bd-highlight row">
           <div></div>
           <label for="content" class="form-label mb-3 text-start fs-2">Content</label>
-          <textarea class="form-control" type="text" id="content" rows="11" style="border-radius: 1em;" v-model="content"></textarea>
+          <textarea class="form-control px-3 py-2" type="text" id="content" rows="11" style="border-radius: 1em;" v-model="content"></textarea>
           <span class="d-flex row m-0 p-0" style="text-align:center">
             <button type="submit" @click="createCommunity" class="btn btn-outline-success button-border mt-4">Submit</button>
           </span>

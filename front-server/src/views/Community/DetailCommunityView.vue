@@ -5,25 +5,32 @@
           <div v-for="num in arr" :key="num" class="shooting_star" style="cursor: pointer;"></div>
       </div>
     </div>
-    <div class="community-box">
-        <h1>Detail</h1>
-        <p>제목: {{ community?.title }}</p>
-        <p>내용: {{ community?.content }}</p>
-        <button v-if="isUser" @click="deleteCommunity" class="btn btn-outline-success button-border mx-2">Delete</button>
-        <button v-if="isUser" @click="updateCommunity" class="btn btn-outline-success button-border mx-2">Update</button>
-        <button @click="returnCommunityView" class="btn btn-outline-success button-border mx-2">Back</button>
-        <br>
-        <hr>
-        <br>
-        <div>
-          <h3>Comment</h3>
-          <form @submit.prevent="createComment">
-            <label for="content">내용</label>
-            <textarea type="text" id="content" v-model="content"></textarea>
-            <input type="submit" class="btn btn-outline-success button-border ms-3">
-          </form>
-        <hr>
+
+    <div class="community-box p-2">
+      <div>
+        <div class="ms-3 me-3 mt-2 mb-1 d-flex justify-content-end" style="color:white">
+          <span class="d-flex fs-4 pt-1 me-auto" >{{ community?.title }}</span>
+          <button v-if="isUser" @click="deleteCommunity" class="btn btn-outline-success button-border ">Delete</button>
+          <button v-if="isUser" @click="updateCommunity" class="btn btn-outline-success button-border mx-2" >Update</button>
+          <button @click="returnCommunityView" class="btn btn-outline-success button-border ms-3">Back</button>
+        </div>
       </div>
+      <hr class="hr-width mt-3 my-2">
+      <div>
+        <div>
+          <p class="text-start"><span class="d-flex mx-4 fs-5" style="height:9em;">{{ community?.content }}</span></p>
+        </div>
+      </div>
+      <hr class="hr-width my-2">
+      <div class="d-flex justify-content-end p-0">
+        <form @submit.prevent="createComment" class="mt-2" >
+          <div class="d-flex pb-1">
+            <textarea class="form-label px-3 pt-1 mb-0" placeholder="Please write a comment here" type="text" v-model="content" style="border-radius: 1em; width:30em; height:2em; resize:none;" ></textarea>
+            <button type="submit" class="btn btn-outline-success button-border mx-2 p-1" style="height:2em;">Submit</button>
+          </div>
+        </form>
+      </div>
+      <hr id="comment-hr">
       <CommunityCommentItem 
       v-for="comment in getComments"
       :key="comment.id"
@@ -212,7 +219,11 @@ h3 {
   color: #e0e0e0;
 }
 
-hr {
+
+.hr-width{
+  width: 52em;
+  margin-left : auto;
+  margin-right : auto;
   border: 1px solid #129b79;
 }
 
