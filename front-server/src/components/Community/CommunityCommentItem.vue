@@ -3,7 +3,7 @@
   <div class="d-flex mb-2">
     <span v-if="!flag" class="ms-3 me-auto">{{ comment?.content }}</span>
     <div v-show="flag" class="ms-3 me-auto">
-        <input type="text" class="ps-2" v-model="content" style="width: 35em; border-radius:1em;">
+        <input type="text" class="ps-2" v-model="content" style="width: 35em; border-radius:1em;" maxlength="34">
         <button v-if="isUser" @click="updateCommunityComment" class="btn btn-outline-success button-border mx-2 btn-sm">submit</button>
         <!-- <label for="content">내용</label>
         <textarea type="text" id="content" v-model="content"></textarea>
