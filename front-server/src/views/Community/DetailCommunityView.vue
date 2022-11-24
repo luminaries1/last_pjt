@@ -25,7 +25,7 @@
       <div class="d-flex justify-content-end p-0">
         <form @submit.prevent="createComment" class="mt-2" >
           <div class="d-flex pb-1">
-            <textarea class="form-label px-3 pt-1 mb-0" placeholder="Please write a comment here" type="text" v-model="content" style="border-radius: 1em; width:30em; height:2em; resize:none;" ></textarea>
+            <textarea class="form-label px-3 pt-1 mb-0" placeholder="Please write a comment here" maxlength="34" type="text" v-model="content" style="border-radius: 1em; width:30em; height:2em; resize:none;" ></textarea>
             <button type="submit" class="btn btn-outline-success button-border mx-2 p-1" style="height:2em;">Submit</button>
           </div>
         </form>
