@@ -50,17 +50,13 @@
 
 # 3 . 데이터베이스 모델링 (ERD)
 
-<img title="" src="file:///C:/Users/multicampus/Desktop/ERD.PNG" alt="">
-
-
+![ERD](https://user-images.githubusercontent.com/59678567/203734038-0934424a-7590-47b3-94e3-52ad4bd88417.PNG)
 
 # 4. 영화 추천 알고리즘에 대한 기술적 설명
 
 아직 추천 알고리즘 컨셉을 잡지 않았음.
 
 # 5. 서비스 대표 기능에 대한 설명
-
-
 
 ## Cummunity - django
 
@@ -91,8 +87,6 @@ class Comment(models.Model):
 - class Communiity와 class Comment 모두 user를 ForeignKey로 받아와 누가 적는 것인지 알 수 있게 만들었습니다.
 
 - class Comment부분에는 community부분을 ForeignKey로 받아 어느 community부분에 적혀있는 것인지 알 수 있게 만들었으며 on_delete=models.CASCADE로 삭제가 되면 지워지게끔 만들었습니다.
-
-
 
 ```python
 # django community/serializers.py
@@ -126,8 +120,6 @@ class CommentSerializer(serializers.ModelSerializer):
 
 - class CommentSerializer는 comment리스트를 모두 받거나 각각 하나씩 받을 때 사용하였습니다.
 
-
-
 ## Community - Vue
 
 ### - Community main 화면
@@ -138,8 +130,6 @@ class CommentSerializer(serializers.ModelSerializer):
 
 - 밑의 페이지버튼 클릭시 각각의 페이지로 이동
 
-
-
 ### - Community create 화면
 
 ![](C:\Users\multicampus\AppData\Roaming\marktext\images\2022-11-24-17-20-41-image.png)
@@ -149,8 +139,6 @@ class CommentSerializer(serializers.ModelSerializer):
 - 우측 상단 Back 버튼 누를시 Community main화면으로 돌아감
 
 - 고정되어 있는 화면 특성으로 Title과 Content의 글자수는 제한했음
-
-
 
 ### - Community detail 화면
 
@@ -165,8 +153,6 @@ class CommentSerializer(serializers.ModelSerializer):
 - 중간의 input에 comment 작성 후 Submit 버튼 클릭시 comment 제출
 
 - 밑의 페이지 버튼을 누르면 comment의 페이지가 넘어감
-
-
 
 ### - Communiy update 화면
 
@@ -185,10 +171,6 @@ class CommentSerializer(serializers.ModelSerializer):
 - comment의 update버튼을 누를시 원래의 입력값을 띄우 input 창이 나오며 우측 Submit 클릭시 comment가 update됨
 
 - 우측 Delete 버튼 클릭시 해당 comment 삭제
-
-
-
-
 
 # 6. 배포 서버 URL
 
