@@ -6,7 +6,6 @@
           <th class="writer">Writer</th>
           <th class="title">Title</th>
           <th class="content">Content</th>
-          <!-- <th>detail</th> -->
         </tr>
       </thead>
       <tbody>

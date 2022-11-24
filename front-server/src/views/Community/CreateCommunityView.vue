@@ -72,7 +72,6 @@ export default {
           this.$router.push({name : 'CommunityView'})
         })
         .catch((err) => {
-          // console.log('안됨안됨')
           console.log(err)
         })
     },

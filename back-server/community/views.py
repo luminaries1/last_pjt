@@ -14,15 +14,10 @@ from .models import Community, Comment
 # Create your views here.
 
 @api_view(['GET', 'POST'])
-# @permission_classes([IsAuthenticated])
 def community_list(request):
-    # community_list 띄우기위한 get
     if request.method == 'GET':
         community = Community.objects.all()
-        # print(community)
         serializer = CommunityListSerializer(community, many=True)
-        # print(serializer)
-        # if serializer.is_valid(raise_exception=True):
         return Response(serializer.data)
     
     elif request.method == 'POST':
@@ -54,31 +49,19 @@ def community_detail(request, community_pk):
 def comment_list(request,community_pk):
     if request.method == 'GET':
         comments = Comment.objects.filter(community_id = community_pk)
-        # comments = get_list_or_404(Comment, community_id=community_pk)
         serializer = CommentSerializer(comments, many=True)
         return Response(serializer.data)
     
     elif request.method == 'POST':
-        print(community_pk)
         community = Community.objects.get(pk=community_pk)
         serializer = CommentSerializer(data=request.data)
-        print(serializer)
         if serializer.is_valid(raise_exception=True):
             serializer.save(community=community, user=request.user)
-            print('되나요?')
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-# @api_view(['GET'])
-# def community_comment(request):
-#     comments = get_list_or_404(Comment)
-#     serializer = CommentSerializer(comments, many=True)
-#     return Response(serializer.data)
-
 
 @api_view(['GET', 'DELETE', 'PUT'])
 def comment_detail(request, comment_pk):
     comment = get_object_or_404(Comment, pk=comment_pk)
-    print(comment)
     if request.method == 'GET':
         serializer = CommentSerializer(comment)
         return Response(serializer.data)
@@ -90,7 +73,6 @@ def comment_detail(request, comment_pk):
     elif request.method == 'PUT':
         community = Community.objects.get(pk=request.data['community_pk'])
         serializer = CommentSerializer(comment, data=request.data)
-        print(comment)
         if serializer.is_valid(raise_exception=True):
             serializer.save(user=request.user, community=community)
             return Response(serializer.data)

@@ -93,14 +93,12 @@ $shooting-time: 3000ms;
        height: 100%;  
        transform: rotateZ(45deg);
        z-index: 0;
-       // animation: sky 200000ms linear infinite;
      }
   
      .shooting_star {
        position: absolute;
        left: 0%;
        top: 0%;
-       // width: 100px;
        height: 2px;
        background: linear-gradient(-45deg, rgba(95, 145, 255, 1), rgba(0, 0, 255, 0));
        border-radius: 999px;
@@ -114,7 +112,6 @@ $shooting-time: 3000ms;
          position: absolute;
          top: calc(50% - 1px);
          right: 0;
-         // width: 30px;
          height: 2px;
          background: linear-gradient(-45deg, rgba(0, 0, 255, 0), rgba(95, 145, 255, 1), rgba(0, 0, 255, 0));
          transform: translateX(50%) rotateZ(45deg);
@@ -123,14 +120,10 @@ $shooting-time: 3000ms;
        }
   
        &::after {
-         // CodePen Error
-         // @extend .shooting_star::before;
-  
          content: '';
          position: absolute;
          top: calc(50% - 1px);
          right: 0;
-         // width: 30px;
          height: 2px;
          background: linear-gradient(-45deg, rgba(0, 0, 255, 0), rgba(95, 145, 255, 1), rgba(0, 0, 255, 0));
          transform: translateX(50%) rotateZ(45deg);
@@ -145,7 +138,6 @@ $shooting-time: 3000ms;
            top: calc(50% - #{random(4000) - 1500px});
            left: calc(50% - #{random(1000) + 0px});
            animation-delay: $delay;
-           // opacity: random(50) / 100 + 0.5;
   
            &::before,
            &::after {

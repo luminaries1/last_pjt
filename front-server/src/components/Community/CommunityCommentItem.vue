@@ -5,9 +5,6 @@
     <div v-show="flag" class="ms-3 me-auto">
         <input type="text" class="ps-2" v-model="content" style="width: 35em; border-radius:1em;" maxlength="34">
         <button v-if="isUser" @click="updateCommunityComment" class="btn btn-outline-success button-border mx-2 btn-sm">submit</button>
-        <!-- <label for="content">내용</label>
-        <textarea type="text" id="content" v-model="content"></textarea>
-        <input type="submit"> -->
     </div>
     <div>
       <button v-if="isUser"  @click="flagChange" class="btn btn-outline-success button-border mx-2 btn-sm">Update</button>
@@ -52,14 +49,10 @@ export default {
       this.$emit('delete-comment', this.comment.id)
     },
     updateCommunityComment() {
-      // const communityId = this.community.id
-      // const commentId = this.comment.id
-      // const content = this.content
       axios({
         method: 'put',
         url: `${API_URL}/community/comments/${ this.comment.id }/`,
         data:{
-          // comment_pk : this.comment.id,
           community_pk : this.community.id,
           content : this.content
         },

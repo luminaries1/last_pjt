@@ -1,10 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-// import ArticleView from '@/views/ArticleView'
-// import CreateView from '@/views/CreateView'
-// import DetailView from '@/views/DetailView'
-
 // movie 랑 article 비교를 위해 분리
 import MovieView from '@/views/Main/MovieView'
 import CreateMovieView from '@/views/Main/CreateMovieView'
@@ -29,12 +25,6 @@ const routes = [
     component: MovieView
   },
   
-  // {
-    //   path: '/create',
-    //   name: 'CreateView',
-  //   component: CreateView
-  // },
-  
   {
     path: '/create',
     name: 'CreateMovieView',
@@ -53,35 +43,30 @@ const routes = [
     component: LogInView
   },
   
-  // {
-    //   path: '/:id',
-    //   name: 'DetailView',
-    //   component: DetailView,
-    // },
-    {
-      path: '/community',
-      name: 'CommunityView',
-      component: CommunityView,
-    },
-    {
-      path: '/community/create',
-      name: 'CreateCommunityView',
-      component: CreateCommunityView,
-    },
-    {
-      path: '/community/:id/update',
-      name: 'UpdateCommunityView',
-      component: UpdateCommunityView
-    },
-    {
-      path: '/community/:id',
-      name: 'DetailCommunityView',
-      component: DetailCommunityView
-    },
-    {
-      path: '/:id',
-      name: 'DetailMovie',
-    component: DetailMovie,
+  {
+    path: '/community',
+    name: 'CommunityView',
+    component: CommunityView,
+  },
+  {
+    path: '/community/create',
+    name: 'CreateCommunityView',
+    component: CreateCommunityView,
+  },
+  {
+    path: '/community/:id/update',
+    name: 'UpdateCommunityView',
+    component: UpdateCommunityView
+  },
+  {
+    path: '/community/:id',
+    name: 'DetailCommunityView',
+    component: DetailCommunityView
+  },
+  {
+    path: '/:id',
+    name: 'DetailMovie',
+  component: DetailMovie,
   },  
 ]
 

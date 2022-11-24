@@ -135,13 +135,10 @@ export default {
         
       },
       
-      // -------------------------여기까지 만들었음-----------------------------
       getCommunityComment() {
         this.$store.dispatch('getComments', this.$route.params.id)
         const maxPage = this.$store.getters.getCommentsLength
         const maxShowPage = Math.min(this.pageNum+6, maxPage)
-        console.log('------------')
-        console.log(maxPage)
         this.pageArr = _.range(this.pageNum,maxShowPage+1)
       },
 
@@ -152,7 +149,6 @@ export default {
       changePage(num) {
         this.pageNum = num
         const maxPage = this.$store.getters.getCommentsLength
-        console.log(maxPage, this.pageNum)
         if(num-3 <= 1) {
           if (maxPage > 7){
             this.pageArr = _.range(1,8)

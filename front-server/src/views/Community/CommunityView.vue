@@ -43,16 +43,13 @@ export default {
   },
   created() {
     this.getCommunitys()
-    // this.getCommentAll()
   },
   methods: {
     getCommunitys() {
         this.$store.dispatch('getCommunitys')
         const maxPage = this.$store.getters.getCommunitysLength
         const maxShowPage = Math.min(this.pageNum+6, maxPage)
-        console.log(maxPage, maxShowPage)
         this.pageArr = _.range(this.pageNum,maxShowPage+1)
-        console.log(this.pageArr)
     },
     changePage(num) {
         this.pageNum = num
@@ -74,7 +71,6 @@ export default {
         }else if (num-3 >1 && num+2 < maxPage){
           this.pageArr = _.range(this.pageNum-3, this.pageNum+4)
         }
-
     },
     isChecked(index) {
       return index == this.pageNum
