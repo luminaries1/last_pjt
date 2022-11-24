@@ -1,8 +1,5 @@
 <template>
   <div class="movieview mt-5 mx-0 px-0">
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" @click="getRandomMovie">
-      Launch demo modal
-    </button>
     <div class="night">
       <div v-for="num in arr" :key="num" class="shooting_star" @click="getShootingStar" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#exampleModal"></div>
     </div>
