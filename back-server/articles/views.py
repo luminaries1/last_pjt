@@ -15,6 +15,7 @@ import requests
 from .models import Movie, Comment
 from django.db.models import Q
 import datetime
+import random
 
 movie_genre_dic = { 'Action' :28,  'Adventure': 12,'Animation' : 16,'Comedy':35,'Crime':80,'Documentary':99,'Drama':18,'Family':10751,'Fantasy':14,'History':36,'Horror':27,'Music'       :    10402,'Mystery'     :    9648,'Romance'     :    10749,'Science Fiction' : 878,'TV Movie'    :    10770,'Thriller'    :    53,'War'         :    10752,'Western'     :    37 }
 
@@ -137,7 +138,6 @@ def movie_list(request):
 
 
     elif request.method == 'POST':
-        print(request.data)
         serializer = MovieSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save(user=request.user)
@@ -164,6 +164,13 @@ def movie_related(request, movie_pk):
     related_movies = list(related_movies_set)
     sorted_results = sorted(related_movies, key = lambda x : -x.score )
     serializer = MovieListSerializer(sorted_results[:5], many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def movie_random(request):
+    random_id = random.sample(range(1,950),5)
+    movies = Movie.objects.filter(Q(id__in=random_id))
+    serializer = MovieListSerializer(movies, many=True)
     return Response(serializer.data)
 
 

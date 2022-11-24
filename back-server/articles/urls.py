@@ -14,6 +14,7 @@ urlpatterns = [
 
 
     path('movies/', views.movie_list),
+    path('movies/randomMovie/', views.movie_random),
     path('movies/<int:movie_pk>/', views.movie_detail),
     path('comments/', views.comment_list),
     path('comments/<int:comment_pk>/', views.comment_detail),
