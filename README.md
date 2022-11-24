@@ -124,17 +124,17 @@ class CommentSerializer(serializers.ModelSerializer):
 
 ### - Community main 화면
 
-![](C:\Users\multicampus\AppData\Roaming\marktext\images\2022-11-24-17-16-52-image.png)
+![main](https://user-images.githubusercontent.com/59678567/203735244-e7f78ae2-e8b9-40ae-8028-8f36d039cf80.PNG)
 
-- 우측 상단의 Create 버튼 클릭시 Comment create 화면으로 넘어감
+우측 상단의 Create 버튼 클릭시 Comment create 화면으로 넘어감
 
 - 밑의 페이지버튼 클릭시 각각의 페이지로 이동
 
 ### - Community create 화면
 
-![](C:\Users\multicampus\AppData\Roaming\marktext\images\2022-11-24-17-20-41-image.png)
+![create](https://user-images.githubusercontent.com/59678567/203735319-2bf9bd73-564b-427c-9c1a-22638df70ec4.PNG)
 
-- Title과 Content 작성후 Submit으로 제출
+Title과 Content 작성후 Submit으로 제출
 
 - 우측 상단 Back 버튼 누를시 Community main화면으로 돌아감
 
@@ -142,9 +142,9 @@ class CommentSerializer(serializers.ModelSerializer):
 
 ### - Community detail 화면
 
-![](C:\Users\multicampus\AppData\Roaming\marktext\images\2022-11-24-17-17-43-image.png)
+![detail](https://user-images.githubusercontent.com/59678567/203735382-534dd0b1-11ba-4fc7-87fb-1254446b8784.PNG)
 
-- 우측 상단 Delete버튼 클릭시 삭제
+우측 상단 Delete버튼 클릭시 삭제
 
 - 우측 상단 Update버튼 클릭시 Community update화면으로 넘어감
 
@@ -156,9 +156,9 @@ class CommentSerializer(serializers.ModelSerializer):
 
 ### - Communiy update 화면
 
-![](C:\Users\multicampus\AppData\Roaming\marktext\images\2022-11-24-17-19-04-image.png)
+![update](https://user-images.githubusercontent.com/59678567/203735416-c00da567-3e10-414c-9575-a5dccdeaf904.PNG)
 
-- 본래의 Title과 Content값이 출력되며 Submit 클릭시 제출
+본래의 Title과 Content값이 출력되며 Submit 클릭시 제출
 
 - Back버튼 클릭시 이전의 Detail화면으로 넘어감
 
@@ -166,9 +166,9 @@ class CommentSerializer(serializers.ModelSerializer):
 
 ### - comment update 화면
 
-![](C:\Users\multicampus\AppData\Roaming\marktext\images\2022-11-24-17-19-39-image.png)
+![Cupdate](https://user-images.githubusercontent.com/59678567/203735393-6ed1f7e5-1dc6-4d87-967b-c081504a1378.PNG)
 
-- comment의 update버튼을 누를시 원래의 입력값을 띄우 input 창이 나오며 우측 Submit 클릭시 comment가 update됨
+comment의 update버튼을 누를시 원래의 입력값을 띄우 input 창이 나오며 우측 Submit 클릭시 comment가 update됨
 
 - 우측 Delete 버튼 클릭시 해당 comment 삭제
 
