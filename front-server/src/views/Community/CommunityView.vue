@@ -57,14 +57,24 @@ export default {
     changePage(num) {
         this.pageNum = num
         const maxPage = this.$store.getters.getCommunitysLength
-        const maxShowPage = Math.min(this.pageNum+6, maxPage)
-        if (num == 1){
-          this.pageArr = _.range(this.pageNum,maxShowPage+1)
-        }else if(num+5 > maxPage){
-          this.pageArr = _.range(this.pageNum-1, maxShowPage+1)
-        }else{
-          this.pageArr = _.range(this.pageNum-1, maxShowPage-1)
+        console.log(maxPage, this.pageNum)
+        if(num-3 <= 1) {
+          if (maxPage > 7){
+            this.pageArr = _.range(1,8)
+          }else{
+            this.pageArr = _.range(1,maxPage+1)
+          }
+        }else if (this.pageNum+2 >= maxPage){
+          if (maxPage < 7){
+            this.pageArr = _.range(1,maxPage+1)
+          }else{
+            this.pageArr = _.range(maxPage-6,maxPage+1)
+
+          }
+        }else if (num-3 >1 && num+2 < maxPage){
+          this.pageArr = _.range(this.pageNum-3, this.pageNum+4)
         }
+
     },
     isChecked(index) {
       return index == this.pageNum

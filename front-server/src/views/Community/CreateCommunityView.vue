@@ -68,7 +68,7 @@ export default {
           },
       })
         .then(() => {
-          // console.log(res)
+          this.$store.dispatch('getCommunitys')
           this.$router.push({name : 'CommunityView'})
         })
         .catch((err) => {

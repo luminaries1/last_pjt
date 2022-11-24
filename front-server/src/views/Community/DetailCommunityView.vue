@@ -67,6 +67,9 @@ export default {
   },
   computed:{
     getComments() {
+      return this.$store.getters.getPartOfComments(this.pageNum)
+    },
+    getAllComment(){
       return this.$store.state.comments
     },
     isUser(){
@@ -87,79 +90,86 @@ export default {
     this.getCommunityDetail()
     this.getCommunityComment()
   },
+  watch:{
+    getAllComment (){
+      this.changePage(1)
+    }
+  },
   methods:{
     getCommunityDetail() {
       axios({
         method: 'get',
         url: `${API_URL}/community/${this.$route.params.id}`
       })
-        .then((res) => {
-          console.log('성공')
-          this.community = res.data
-        })
-        .catch((err) => {
-          console.log('실패')
-          console.log(err)
-        })
+      .then((res) => {
+        this.community = res.data
+      })
+      .catch((err) => {
+        console.log(err)
+      })
     },
-
+    
     deleteCommunity() {
       this.$store.commit('DELETE_COMMUNITY', this.community.id)
       axios({
         method: 'delete',
         url: `${API_URL}/community/${ this.community.id }/`,
         headers: {
-            Authorization : `Token ${this.$store.state.token}`
-          },
+          Authorization : `Token ${this.$store.state.token}`
+        },
       })
         .then(() => {
           this.$router.push({ name: 'CommunityView' })
         })
-    },
+      },
+      
+      updateCommunity() {
+        if(this.$store.state.userName === this.community.username){
+          this.$router.push({
+            name : 'UpdateCommunityView', 
+            params: {id: this.community.id},
+          })
+        }else{
+          alert('사용자가 다릅니다.')
+        }
+        
+      },
+      
+      // -------------------------여기까지 만들었음-----------------------------
+      getCommunityComment() {
+        this.$store.dispatch('getComments', this.$route.params.id)
+        const maxPage = this.$store.getters.getCommentsLength
+        const maxShowPage = Math.min(this.pageNum+6, maxPage)
+        console.log('------------')
+        console.log(maxPage)
+        this.pageArr = _.range(this.pageNum,maxShowPage+1)
+      },
 
-    updateCommunity() {
-      if(this.$store.state.userName === this.community.username){
-        this.$router.push({
-        name : 'UpdateCommunityView', 
-        params: {id: this.community.id},
-      })
-      }else{
-        alert('사용자가 다릅니다.')
-      }
-
-    },
-
-    getCommunityComment() {
-      this.$store.dispatch('getComments', this.$route.params.id)
-      const maxPage = this.$store.getters.getCommentsLength
-      const maxShowPage = Math.min(this.PageNum+6, maxPage)
-      console.log(maxPage,maxShowPage)
-      this.pageArr = _.range(this.pageNum,maxShowPage+1)
-      console.log(this.pageArr)
-      // const id = this.$route.params.id
-      // const payload = {
-      //   id
-      // }
-      // this.$store.dispatch('getComments', payload)
-
-      // axios({
-      //   method: 'get',
-      //   url: `${API_URL}/community/${this.$route.params.id}/comments/`,
-      //   headers: {
-      //       Authorization : `Token ${this.$store.state.token}`
-      //     },
-      // })
-      //   .then((res) => {
-      //     // console.log(res.data)
-      //     this.comments = res.data
-      //   })
-      //   .catch((err) => {
-      //     console.log(err)
-      //   })
-    },
-// -------------------------여기까지 만들었음-----------------------------
-    isChecked(index){ 
-      return index == this.pageNum
+      isChecked(index){ 
+        return index == this.pageNum
+      },
+      
+      changePage(num) {
+        this.pageNum = num
+        const maxPage = this.$store.getters.getCommentsLength
+        console.log(maxPage, this.pageNum)
+        if(num-3 <= 1) {
+          if (maxPage > 7){
+            this.pageArr = _.range(1,8)
+          }else{
+            this.pageArr = _.range(1,maxPage+1)
+          }
+        }else if (this.pageNum+2 >= maxPage){
+          if (maxPage < 7){
+            this.pageArr = _.range(1,maxPage+1)
+          }else{
+            this.pageArr = _.range(maxPage-6,maxPage+1)
+            
+          }
+        }else if (num-3 >1 && num+2 < maxPage){
+          this.pageArr = _.range(this.pageNum-3, this.pageNum+4)
+        }
+      this.comments=this.$store.getters.getPartOfComments(this.pageNum)
     },
     createComment() {
       const content = this.content
@@ -183,6 +193,7 @@ export default {
     },
 
     returnCommunityView(){
+      this.pageArr=[]
       this.$router.push({ name: 'CommunityView' })
     },
 

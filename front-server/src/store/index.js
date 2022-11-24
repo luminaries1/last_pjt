@@ -43,17 +43,25 @@ export default new Vuex.Store({
     },
 
     getCommunitysLength(state) {
-      return parseInt(state.communitys.length/9)+1
+      if(parseInt(state.communitys.length%9)==0){
+        return parseInt(state.communitys.length/9)
+      }else{
+        return parseInt(state.communitys.length/9)+1
+      }
     },
     getPartOfCommunitys: (state) => (index) => {
       return state.communitys.slice((index-1)*9, index*9)
     },
 
     getCommentsLength(state) {
-      return parseInt(state.comments.length/6) + 1
+      if(parseInt(state.comments.length%5)==0){
+        return parseInt(state.comments.length/5)
+      }else{
+        return parseInt(state.comments.length/5)+1
+      }
     },
     getPartOfComments: (state) => (index) => {
-      return state.comments.slice((index-1)*6, index*6)
+      return state.comments.slice((index-1)*5, index*5)
     },
     getDetailCommunity: (state) => (id) => {
       return state.communitys.filter((community) => {
@@ -78,7 +86,7 @@ export default new Vuex.Store({
       router.push({ name:'LogInView'})
     },
     GET_COMMUNITYS(state, communitys){
-      state.communitys = communitys
+      state.communitys = communitys.reverse()
     },
     SET_USERNAME(state, userName){
       state.userName = userName
@@ -103,7 +111,7 @@ export default new Vuex.Store({
       })
     },
     GET_COMMENTS(state, comments) {
-      state.comments = comments
+      state.comments = comments.reverse()
     },
     UPDATE_GENRE(state, genre){
       state.genre = genre
