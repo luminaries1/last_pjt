@@ -20,7 +20,7 @@
     
     - Comunnity 기능과 커뮤니티 CRUD
     - 게시판 페이지 네이션
-    - SQLite 활용 DB 
+    - SQLite 활용 DB 관리
     - 코멘트
 
 # 2.  목표 서비스 구현 및 실제 구현 정도
